@@ -10,9 +10,8 @@ import at.orchaldir.ofws.model.app.UserId
 fun reduceDeleteElement(
     state: State,
     id: Id,
-): Pair<State, List<Action>> = when (id) {
-    is UserId -> deleteElement(state, id)
-    else -> error("Deleting is not supported!")
+): Pair<State, List<Action>> {
+    return deleteElement(state, id)
 }
 
 fun <ID : Id, ELEMENT : Element<ID>, Action> deleteElement(

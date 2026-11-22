@@ -11,12 +11,16 @@ import at.orchaldir.ofws.model.app.UserId
 fun reduceCreateElement(
     state: State,
     id: Id,
-): Pair<State, List<Action>> = when (id) {
-    is UserId -> createElement(state, User(id))
-    else -> error("Creating is not supported!")
+): Pair<State, List<Action>> {
+    val element = when (id) {
+        is UserId -> User(id)
+        else -> error("Creating is not supported!")
+    }
+
+    return createElement(state, element)
 }
 
-fun <ID : Id, ELEMENT : Element<ID>, Action> createElement(
+private fun <ID : Id, ELEMENT : Element<ID>, Action> createElement(
     state: State,
     element: ELEMENT,
 ): Pair<State, List<Action>> {
