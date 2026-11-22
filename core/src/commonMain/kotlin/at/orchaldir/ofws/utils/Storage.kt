@@ -1,9 +1,9 @@
 package at.orchaldir.ofws.utils
 
-interface Id<ID> {
+interface Id {
     fun type(): String
     fun plural() = type() + "s"
-    fun value(): Int
+    fun value(): String
     fun print() = "${type()} ${value()}"
 }
 
@@ -11,11 +11,16 @@ interface Element<ID> {
     fun id(): ID
 }
 
-data class Storage<ID : Id<ID>, ELEMENT : Element<ID>>(
+data class Storage<ID : Id, ELEMENT : Element<ID>>(
     private val elements: Map<ID, ELEMENT>,
     private val type: String,
 ) {
     constructor(element: ELEMENT) : this(listOf(element), element.id().type())
+
+    constructor(elements: List<ELEMENT>) : this(
+        elements,
+        elements.first().id().type(),
+    )
 
     constructor(elements: List<ELEMENT>, type: String) : this(
         elements.associateBy { it.id() },
