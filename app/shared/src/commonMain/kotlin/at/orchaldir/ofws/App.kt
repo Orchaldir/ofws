@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.sp
 import at.orchaldir.ofws.model.app.User
 import at.orchaldir.ofws.network.UserApi
 import at.orchaldir.ofws.network.createHttpClient
+import at.orchaldir.ofws.ui.UpdateUserDialog
 import kotlinx.coroutines.launch
 
 @Composable
@@ -26,9 +27,23 @@ fun App() {
         val userApi = remember { UserApi(httpClient) }
         var users by remember { mutableStateOf(emptyList<User>()) }
         val scope = rememberCoroutineScope()
+        var currentUser by remember { mutableStateOf<User?>(null) }
 
         LaunchedEffect(Unit) {
             users = userApi.getAllUsers()
+        }
+
+        if (currentUser != null) {
+            UpdateUserDialog(
+                currentUser!!,
+                onConfirm = {
+                    scope.launch {
+                        userApi.updateUser(it)
+                        users = userApi.getAllUsers()
+                    }
+                    currentUser = null
+                }
+            )
         }
 
         LazyColumn(
@@ -46,6 +61,7 @@ fun App() {
                         }
                     },
                     onUpdate = {
+                        currentUser = user
                     }
                 )
             }

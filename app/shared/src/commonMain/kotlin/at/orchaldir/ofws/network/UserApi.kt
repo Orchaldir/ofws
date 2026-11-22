@@ -6,6 +6,7 @@ import at.orchaldir.ofws.model.app.UserId
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.resources.get
+import io.ktor.client.plugins.resources.post
 
 class UserApi(private val httpClient: HttpClient) {
 
@@ -17,5 +18,9 @@ class UserApi(private val httpClient: HttpClient) {
 
     suspend fun deleteUser(id: UserId) {
         httpClient.get(UserRoutes.Delete(id))
+    }
+
+    suspend fun updateUser(user: User) {
+        httpClient.post(UserRoutes.Update(user))
     }
 }

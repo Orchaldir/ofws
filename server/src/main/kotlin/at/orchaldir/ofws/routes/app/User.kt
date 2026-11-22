@@ -25,6 +25,9 @@ fun Application.configureUserRouting(store: Store<Action, State>) {
         get<UserRoutes.Delete> { delete ->
             handleDeleteElement(store, delete.id)
         }
+        post<UserRoutes.New> {
+            //handleUpdateElement(store, update.user)
+        }
         post<UserRoutes.Update> { update ->
             handleUpdateElement(store, update.user)
         }
