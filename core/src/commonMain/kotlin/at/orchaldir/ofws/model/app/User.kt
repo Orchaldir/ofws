@@ -3,16 +3,18 @@ package at.orchaldir.ofws.model.app
 import at.orchaldir.ofws.utils.Element
 import at.orchaldir.ofws.utils.Id
 import kotlinx.serialization.Serializable
-import kotlin.jvm.JvmInline
 
 const val USER_TYPE = "User"
 
-@JvmInline
 @Serializable
-value class UserId(val value: String) : Id {
+data class UserId(
+    val origin: String,
+    val index: Int,
+) : Id {
 
     override fun type() = USER_TYPE
-    override fun value() = value
+    override fun origin() = origin
+    override fun index() = index
 
 }
 

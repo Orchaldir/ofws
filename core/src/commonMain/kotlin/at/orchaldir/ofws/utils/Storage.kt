@@ -3,8 +3,9 @@ package at.orchaldir.ofws.utils
 interface Id {
     fun type(): String
     fun plural() = type() + "s"
-    fun value(): String
-    fun print() = "${type()} ${value()}"
+    fun origin(): String
+    fun index(): Int
+    fun print() = "${type()} ${origin()}_${index()}"
 }
 
 interface Element<ID> {
