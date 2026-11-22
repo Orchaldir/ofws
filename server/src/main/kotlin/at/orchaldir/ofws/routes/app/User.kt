@@ -9,12 +9,9 @@ import io.ktor.server.application.*
 import io.ktor.server.resources.get
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import kotlinx.serialization.Serializable
 
-@Serializable
 @Resource("/$USER_TYPE")
 class UserRoutes {
-    @Serializable
     @Resource("all")
     class All(
         val parent: UserRoutes = UserRoutes(),
