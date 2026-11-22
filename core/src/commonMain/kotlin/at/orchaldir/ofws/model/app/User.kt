@@ -2,6 +2,7 @@ package at.orchaldir.ofws.model.app
 
 import at.orchaldir.ofws.utils.Element
 import at.orchaldir.ofws.utils.Id
+import at.orchaldir.ofws.utils.Name
 import kotlinx.serialization.Serializable
 
 const val USER_TYPE = "User"
@@ -21,8 +22,8 @@ data class UserId(
 @Serializable
 data class User(
     val id: UserId,
-    val name: String,
-    val role: UserRole,
+    val name: Name = Name.init(id),
+    val role: UserRole = UserRole.Player,
 ) : Element<UserId> {
 
     override fun id() = id
