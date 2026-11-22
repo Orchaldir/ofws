@@ -28,6 +28,11 @@ data class Storage<ID : Id, ELEMENT : Element<ID>>(
         type,
     )
 
+    constructor(type: String) : this(
+        emptyMap(),
+        type,
+    )
+
     fun add(element: ELEMENT): Storage<ID, ELEMENT> {
         return Storage(elements + mapOf(element.id() to element), type)
     }
