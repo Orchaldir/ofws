@@ -3,6 +3,7 @@ package at.orchaldir.ofws.network
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.defaultRequest
+import io.ktor.client.plugins.resources.Resources
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
@@ -15,6 +16,7 @@ fun createHttpClient() = HttpClient {
             ignoreUnknownKeys = true
         })
     }
+    install(Resources)
     defaultRequest {
         host = "127.0.0.1"
         port = 8080

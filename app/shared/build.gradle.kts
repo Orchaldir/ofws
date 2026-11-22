@@ -2,6 +2,7 @@ import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
+    alias(libs.plugins.kotlinSerialization)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
 }
@@ -30,6 +31,7 @@ kotlin {
             implementation(libs.androidx.lifecycle.runtimeCompose)
             implementation(ktorLibs.client.core)
             implementation(ktorLibs.client.contentNegotiation)
+            implementation(ktorLibs.client.resources)
             implementation(ktorLibs.serialization.kotlinx.json)
         }
         commonTest.dependencies {
