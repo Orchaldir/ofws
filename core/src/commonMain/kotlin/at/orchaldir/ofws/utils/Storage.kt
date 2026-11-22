@@ -1,7 +1,6 @@
 package at.orchaldir.ofws.utils
 
 interface Id<ID> {
-    fun next(): ID
     fun type(): String
     fun plural() = type() + "s"
     fun value(): Int
@@ -14,22 +13,17 @@ interface Element<ID> {
 
 data class Storage<ID : Id<ID>, ELEMENT : Element<ID>>(
     private val elements: Map<ID, ELEMENT>,
-    val nextId: ID,
-    val lastId: ID = nextId,
+    private val type: String,
 ) {
-    constructor(nextId: ID) : this(mapOf(), nextId)
+    constructor(element: ELEMENT) : this(listOf(element), element.id().type())
 
-    constructor(element: ELEMENT) : this(listOf(element))
-
-    constructor(elements: List<ELEMENT>) : this(
+    constructor(elements: List<ELEMENT>, type: String) : this(
         elements.associateBy { it.id() },
-        elements.map { it.id() }.last().next()
+        type,
     )
 
     fun add(element: ELEMENT): Storage<ID, ELEMENT> {
-        require(element.id() == nextId) { "Added ${element.id().print()} doesn't have the next free id!" }
-
-        return Storage(elements + mapOf(nextId to element), nextId.next(), nextId)
+        return Storage(elements + mapOf(element.id() to element), type)
     }
 
     fun remove(id: ID) = copy(elements = elements - setOf(id))
@@ -37,6 +31,8 @@ data class Storage<ID : Id<ID>, ELEMENT : Element<ID>>(
     fun update(element: ELEMENT) = copy(elements = elements + mapOf(element.id() to element))
 
     fun update(updated: List<ELEMENT>) = copy(elements = elements + updated.associateBy { it.id() })
+
+    // getters
 
     fun getIds() = elements.keys
 
@@ -47,15 +43,7 @@ data class Storage<ID : Id<ID>, ELEMENT : Element<ID>>(
 
     fun getSize() = elements.size
 
-    fun isEmpty() = elements.isEmpty()
-    fun isEmptyWithout(id: ID?) = if (id != null) {
-        (getSize() - 1) == 0
-    } else {
-        isEmpty()
-    }
-
-    fun getType() = nextId.type()
-    fun getPlural() = nextId.plural()
+    fun getType() = type
 
     fun get(id: ID) = elements[id]
 
