@@ -2,6 +2,7 @@ package at.orchaldir.ofws
 
 import at.orchaldir.ofws.action.REDUCER
 import at.orchaldir.ofws.model.State
+import at.orchaldir.ofws.routes.app.configureUserRouting
 import at.orchaldir.ofws.utils.redux.DefaultStore
 import at.orchaldir.ofws.utils.redux.middleware.LogAction
 import io.ktor.http.*
@@ -35,4 +36,5 @@ fun Application.module() {
             call.respondText(sayHello("Ktor"))
         }
     }
+    configureUserRouting(store)
 }
