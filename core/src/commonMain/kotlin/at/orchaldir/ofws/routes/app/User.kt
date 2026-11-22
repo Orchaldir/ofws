@@ -1,6 +1,7 @@
 package at.orchaldir.ofws.routes.app
 
 import at.orchaldir.ofws.model.app.USER_TYPE
+import at.orchaldir.ofws.model.app.User
 import at.orchaldir.ofws.model.app.UserId
 import io.ktor.resources.Resource
 
@@ -19,5 +20,5 @@ class UserRoutes {
     class Delete(val id: UserId, val parent: UserRoutes = UserRoutes())
 
     @Resource("update")
-    class Update(val id: UserId, val parent: UserRoutes = UserRoutes())
+    class Update(val user: User, val parent: UserRoutes = UserRoutes())
 }

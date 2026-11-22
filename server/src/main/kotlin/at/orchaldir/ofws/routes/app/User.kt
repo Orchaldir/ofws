@@ -5,6 +5,7 @@ import at.orchaldir.ofws.model.State
 import at.orchaldir.ofws.utils.redux.Store
 import at.orchaldir.ofws.routes.handleDeleteElement
 import at.orchaldir.ofws.routes.handleElementDetails
+import at.orchaldir.ofws.routes.handleUpdateElement
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.*
 import io.ktor.server.resources.get
@@ -23,6 +24,9 @@ fun Application.configureUserRouting(store: Store<Action, State>) {
         }
         get<UserRoutes.Delete> { delete ->
             handleDeleteElement(store, delete.id)
+        }
+        post<UserRoutes.Update> { update ->
+            handleUpdateElement(store, update.user)
         }
     }
 }

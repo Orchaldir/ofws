@@ -2,6 +2,7 @@ package at.orchaldir.ofws.routes
 
 import at.orchaldir.ofws.action.Action
 import at.orchaldir.ofws.action.DeleteAction
+import at.orchaldir.ofws.action.UpdateAction
 import at.orchaldir.ofws.model.State
 import at.orchaldir.ofws.utils.CannotDeleteException
 import at.orchaldir.ofws.utils.Element
@@ -37,6 +38,21 @@ suspend inline fun RoutingContext.handleDeleteElement(
         store.dispatch(DeleteAction(id))
         call.respond(HttpStatusCode.NoContent)
     } catch (e: CannotDeleteException) {
+        logger.warn { e.message }
+        call.respond(HttpStatusCode.BadRequest)
+    }
+}
+
+suspend inline fun <ID : Id, reified ELEMENT : Element<ID>> RoutingContext.handleUpdateElement(
+    store: Store<Action, State>,
+    element: ELEMENT,
+) {
+    logger.info { "Update ${element.id().print()}" }
+
+    try {
+        store.dispatch(UpdateAction(element))
+        call.respond(HttpStatusCode.NoContent)
+    } catch (e: IllegalArgumentException) {
         logger.warn { e.message }
         call.respond(HttpStatusCode.BadRequest)
     }
