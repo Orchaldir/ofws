@@ -17,7 +17,8 @@ import androidx.compose.ui.unit.sp
 import at.orchaldir.ofws.model.User
 import at.orchaldir.ofws.network.UserApi
 import at.orchaldir.ofws.network.createHttpClient
-import at.orchaldir.ofws.ui.UpdateUserDialog
+import at.orchaldir.ofws.ui.UserCard
+import at.orchaldir.ofws.ui.UserUpdateDialog
 import kotlinx.coroutines.launch
 
 @Composable
@@ -34,7 +35,7 @@ fun App() {
         }
 
         if (currentUser != null) {
-            UpdateUserDialog(
+            UserUpdateDialog(
                 currentUser!!,
                 onConfirm = {
                     scope.launch {
@@ -64,36 +65,6 @@ fun App() {
                         currentUser = user
                     }
                 )
-            }
-        }
-    }
-}
-
-@Composable
-fun UserCard(
-    user: User,
-    onDelete: (User) -> Unit,
-    onUpdate: (User) -> Unit
-) {
-    Card(
-        modifier = Modifier.fillMaxWidth().padding(4.dp),
-        shape = RoundedCornerShape(CornerSize(4.dp))
-    ) {
-        Column(modifier = Modifier.padding(10.dp)) {
-            Text(
-                "${user.name.text}: ${user.role}",
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Bold
-            )
-
-            Row {
-                OutlinedButton(onClick = { onDelete(user) }) {
-                    Text("Delete")
-                }
-                Spacer(Modifier.width(8.dp))
-                OutlinedButton(onClick = { onUpdate(user) }) {
-                    Text("Update")
-                }
             }
         }
     }

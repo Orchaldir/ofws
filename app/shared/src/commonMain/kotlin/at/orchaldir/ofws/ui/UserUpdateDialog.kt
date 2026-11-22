@@ -24,7 +24,7 @@ import at.orchaldir.ofws.model.User
 import at.orchaldir.ofws.utils.Name
 
 @Composable
-fun UpdateUserDialog(
+fun UserUpdateDialog(
     user: User,
     onConfirm: (User) -> Unit
 ) {
