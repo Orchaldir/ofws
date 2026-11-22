@@ -65,7 +65,7 @@ fun UserCard(
     ) {
         Column(modifier = Modifier.padding(10.dp)) {
             Text(
-                "${user.name}: ${user.role}",
+                "${user.name.text}: ${user.role}",
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold
             )
