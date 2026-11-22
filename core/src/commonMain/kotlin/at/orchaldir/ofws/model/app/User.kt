@@ -1,5 +1,7 @@
 package at.orchaldir.ofws.model.app
 
+import at.orchaldir.ofws.model.State
+import at.orchaldir.ofws.utils.DeleteResult
 import at.orchaldir.ofws.utils.Element
 import at.orchaldir.ofws.utils.Id
 import at.orchaldir.ofws.utils.Name
@@ -27,5 +29,7 @@ data class User(
 ) : Element<UserId> {
 
     override fun id() = id
+
+    override fun canDelete(state: State) = DeleteResult(id)
 
 }

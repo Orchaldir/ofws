@@ -10,20 +10,18 @@ fun reduceDeleteElement(
     state: State,
     id: Id,
 ): Pair<State, List<Action>> = when (id) {
-    is UserId -> deleteElement(state, id, State::canDeleteAmmunition)
-
+    is UserId -> deleteElement(state, id)
     else -> error("Deleting is not supported!")
 }
 
 fun <ID : Id, ELEMENT : Element<ID>, Action> deleteElement(
     state: State,
     id: ID,
-    validation: (State, ID) -> DeleteResult,
 ): Pair<State, List<Action>> {
     val storage = state.getStorage<ID, ELEMENT>(id)
+    val element = storage.getOrThrow(id)
 
-    storage.require(id)
-    //validation.invoke(state, id).validate()
+    element.canDelete(state).validate()
 
     return noFollowUps(state.updateStorage(storage.remove(id)))
 }

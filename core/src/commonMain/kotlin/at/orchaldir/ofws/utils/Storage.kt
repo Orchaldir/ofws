@@ -1,5 +1,7 @@
 package at.orchaldir.ofws.utils
 
+import at.orchaldir.ofws.model.State
+
 interface Id {
     fun type(): String
     fun plural() = type() + "s"
@@ -10,6 +12,7 @@ interface Id {
 
 interface Element<ID> {
     fun id(): ID
+    fun canDelete(state: State): DeleteResult
 }
 
 data class Storage<ID : Id, ELEMENT : Element<ID>>(
