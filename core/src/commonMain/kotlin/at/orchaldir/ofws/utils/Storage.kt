@@ -42,7 +42,26 @@ data class Storage<ID : Id, ELEMENT : Element<ID>>(
 
     fun getIds() = elements.keys
 
+    fun getNextIndex(origin: String): Int {
+        val usedIndices = getForOrigin(origin)
+            .map { it.id().index() }
+        val maxIndex = usedIndices
+            .maxOrNull()
+            ?: 0
+
+        (0..maxIndex).forEach { index ->
+            if (!usedIndices.contains(index )) {
+                return index
+            }
+        }
+
+        return maxIndex + 1
+    }
+
     fun getAll() = elements.values
+
+    fun getForOrigin(origin: String) = getAll()
+        .filter { it.id().origin() == origin }
 
     fun getAllExcept(id: ID?) = elements.values
         .filter { it.id() != id }
