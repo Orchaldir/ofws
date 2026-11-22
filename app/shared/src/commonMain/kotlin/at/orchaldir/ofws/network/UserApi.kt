@@ -21,6 +21,6 @@ class UserApi(private val httpClient: HttpClient) {
     }
 
     suspend fun updateUser(user: User) {
-        httpClient.post(UserRoutes.Update(user))
+        httpClient.get(UserRoutes.Update(user))
     }
 }

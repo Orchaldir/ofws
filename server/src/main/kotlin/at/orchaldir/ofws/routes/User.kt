@@ -24,7 +24,7 @@ fun Application.configureUserRouting(store: Store<Action, State>) {
         post<UserRoutes.New> {
             //handleUpdateElement(store, update.user)
         }
-        post<UserRoutes.Update> { update ->
+        get<UserRoutes.Update> { update ->
             handleUpdateElement(store, update.user)
         }
     }

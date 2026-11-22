@@ -40,7 +40,7 @@ fun UserUpdateDialog(
             shape = RoundedCornerShape(CornerSize(4.dp))
         ) {
             Column(modifier = Modifier.padding(10.dp)) {
-                Text("Update ${user.name}", fontSize = 20.sp)
+                Text("Update ${user.name.text}", fontSize = 20.sp)
                 TextField(
                     value = name,
                     onValueChange = { name = it },
