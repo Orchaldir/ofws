@@ -1,5 +1,6 @@
 package at.orchaldir.ofws.model.app
 
+import at.orchaldir.ofws.utils.Element
 import at.orchaldir.ofws.utils.Id
 import kotlinx.serialization.Serializable
 import kotlin.jvm.JvmInline
@@ -17,6 +18,11 @@ value class UserId(val value: String) : Id {
 
 @Serializable
 data class User(
+    val id: UserId,
     val name: String,
     val role: UserRole,
-)
+) : Element<UserId> {
+
+    override fun id() = id
+
+}
