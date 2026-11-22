@@ -30,7 +30,11 @@ fun Application.module() {
     install()
 
     val admin = User(UserId("app", 0), Name.init("Admin"), UserRole.Admin)
-    val state = State(Storage(admin))
+    val users = mutableListOf(admin)
+    (0..10).forEach {
+        users.add(User(UserId("test", it)))
+    }
+    val state = State(Storage(users))
     val store = DefaultStore(state, REDUCER, listOf(LogAction()))
 
     routing {
