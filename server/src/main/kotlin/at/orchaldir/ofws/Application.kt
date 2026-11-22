@@ -2,7 +2,12 @@ package at.orchaldir.ofws
 
 import at.orchaldir.ofws.action.REDUCER
 import at.orchaldir.ofws.model.State
+import at.orchaldir.ofws.model.app.User
+import at.orchaldir.ofws.model.app.UserId
+import at.orchaldir.ofws.model.app.UserRole
 import at.orchaldir.ofws.routes.app.configureUserRouting
+import at.orchaldir.ofws.utils.Name
+import at.orchaldir.ofws.utils.Storage
 import at.orchaldir.ofws.utils.redux.DefaultStore
 import at.orchaldir.ofws.utils.redux.middleware.LogAction
 import io.ktor.http.*
@@ -29,7 +34,9 @@ fun Application.module() {
         allowMethod(HttpMethod.Delete)
         anyHost()
     }
-    val store = DefaultStore(State(), REDUCER, listOf(LogAction()))
+    val admin = User(UserId("app", 0), Name.init("Admin"), UserRole.Admin)
+    val state = State(Storage(admin))
+    val store = DefaultStore(state, REDUCER, listOf(LogAction()))
 
     routing {
         get("/") {
