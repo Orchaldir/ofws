@@ -17,6 +17,7 @@ import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.plugins.cors.routing.*
+import io.ktor.server.resources.Resources
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 
@@ -26,14 +27,8 @@ fun main() {
 }
 
 fun Application.module() {
-    install(ContentNegotiation) {
-        json()
-    }
-    install(CORS) {
-        allowHeader(HttpHeaders.ContentType)
-        allowMethod(HttpMethod.Delete)
-        anyHost()
-    }
+    install()
+
     val admin = User(UserId("app", 0), Name.init("Admin"), UserRole.Admin)
     val state = State(Storage(admin))
     val store = DefaultStore(state, REDUCER, listOf(LogAction()))
@@ -44,4 +39,16 @@ fun Application.module() {
         }
     }
     configureUserRouting(store)
+}
+
+private fun Application.install() {
+    install(ContentNegotiation) {
+        json()
+    }
+    install(CORS) {
+        allowHeader(HttpHeaders.ContentType)
+        allowMethod(HttpMethod.Delete)
+        anyHost()
+    }
+    install(Resources)
 }
