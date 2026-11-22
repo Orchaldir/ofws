@@ -4,6 +4,7 @@ import at.orchaldir.ofws.action.Action
 import at.orchaldir.ofws.model.State
 import at.orchaldir.ofws.utils.redux.Store
 import at.orchaldir.ofws.routes.handleDeleteElement
+import at.orchaldir.ofws.routes.handleElementDetails
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.*
 import io.ktor.server.resources.get
@@ -18,12 +19,7 @@ fun Application.configureUserRouting(store: Store<Action, State>) {
             call.respond(state.getUserStorage().getAll())
         }
         get<UserRoutes.Details> { details ->
-            store.getState().getUserStorage().get(details.id)?.let {
-                call.respond(it)
-                return@get
-            }
-
-            call.respond(HttpStatusCode.NotFound)
+            handleElementDetails(store.getState().getUserStorage(), details.id)
         }
         get<UserRoutes.Delete> { delete ->
             handleDeleteElement(store, delete.id)
