@@ -1,4 +1,4 @@
-package at.orchaldir.ofws.model.app
+package at.orchaldir.ofws.model
 
 enum class UserRole {
     Admin,

@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import at.orchaldir.ofws.model.app.User
+import at.orchaldir.ofws.model.User
 import at.orchaldir.ofws.network.UserApi
 import at.orchaldir.ofws.network.createHttpClient
 import at.orchaldir.ofws.ui.UpdateUserDialog

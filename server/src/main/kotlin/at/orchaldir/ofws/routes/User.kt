@@ -1,12 +1,8 @@
-package at.orchaldir.ofws.routes.app
+package at.orchaldir.ofws.routes
 
 import at.orchaldir.ofws.action.Action
 import at.orchaldir.ofws.model.State
 import at.orchaldir.ofws.utils.redux.Store
-import at.orchaldir.ofws.routes.handleDeleteElement
-import at.orchaldir.ofws.routes.handleElementDetails
-import at.orchaldir.ofws.routes.handleUpdateElement
-import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.*
 import io.ktor.server.resources.get
 import io.ktor.server.response.*

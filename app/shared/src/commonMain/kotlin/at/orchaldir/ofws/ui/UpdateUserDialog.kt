@@ -20,7 +20,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
-import at.orchaldir.ofws.model.app.User
+import at.orchaldir.ofws.model.User
 import at.orchaldir.ofws.utils.Name
 
 @Composable

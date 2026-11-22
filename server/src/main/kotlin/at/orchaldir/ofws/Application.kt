@@ -2,10 +2,10 @@ package at.orchaldir.ofws
 
 import at.orchaldir.ofws.action.REDUCER
 import at.orchaldir.ofws.model.State
-import at.orchaldir.ofws.model.app.User
-import at.orchaldir.ofws.model.app.UserId
-import at.orchaldir.ofws.model.app.UserRole
-import at.orchaldir.ofws.routes.app.configureUserRouting
+import at.orchaldir.ofws.model.User
+import at.orchaldir.ofws.model.UserId
+import at.orchaldir.ofws.model.UserRole
+import at.orchaldir.ofws.routes.configureUserRouting
 import at.orchaldir.ofws.utils.Name
 import at.orchaldir.ofws.utils.Storage
 import at.orchaldir.ofws.utils.redux.DefaultStore

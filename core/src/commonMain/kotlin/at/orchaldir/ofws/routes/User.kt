@@ -1,8 +1,8 @@
-package at.orchaldir.ofws.routes.app
+package at.orchaldir.ofws.routes
 
-import at.orchaldir.ofws.model.app.USER_TYPE
-import at.orchaldir.ofws.model.app.User
-import at.orchaldir.ofws.model.app.UserId
+import at.orchaldir.ofws.model.USER_TYPE
+import at.orchaldir.ofws.model.User
+import at.orchaldir.ofws.model.UserId
 import io.ktor.resources.Resource
 
 @Resource("/$USER_TYPE")
