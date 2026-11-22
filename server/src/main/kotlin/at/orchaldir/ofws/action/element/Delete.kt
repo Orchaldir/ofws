@@ -1,5 +1,6 @@
-package at.orchaldir.ofws.action
+package at.orchaldir.ofws.action.element
 
+import at.orchaldir.ofws.action.Action
 import at.orchaldir.ofws.utils.Element
 import at.orchaldir.ofws.utils.Id
 import at.orchaldir.ofws.utils.redux.noFollowUps
