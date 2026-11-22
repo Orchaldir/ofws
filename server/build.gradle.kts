@@ -18,6 +18,6 @@ dependencies {
     implementation(ktorLibs.serialization.kotlinx.json)
     implementation(ktorLibs.server.contentNegotiation)
     implementation(ktorLibs.server.cors)
-    testImplementation(libs.ktor.serverTestHost)
+    testImplementation(ktorLibs.server.testHost)
     testImplementation(libs.kotlin.testJunit)
 }
