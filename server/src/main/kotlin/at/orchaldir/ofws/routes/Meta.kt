@@ -17,18 +17,6 @@ import mu.KotlinLogging
 
 val logger = KotlinLogging.logger {}
 
-suspend inline fun  <ID : Id, reified ELEMENT : Element<ID>> RoutingContext.handleElementDetails(
-    storage: Storage<ID, ELEMENT>,
-    id: ID,
-) {
-    storage.get(id)?.let {
-        call.respond(it)
-        return
-    }
-
-    call.respond(HttpStatusCode.NotFound)
-}
-
 suspend inline fun RoutingContext.handleDeleteElement(
     store: Store<Action, State>,
     id: Id,
@@ -44,15 +32,32 @@ suspend inline fun RoutingContext.handleDeleteElement(
     }
 }
 
-suspend inline fun <ID : Id, reified ELEMENT : Element<ID>> RoutingContext.handleNewElement(
+suspend inline fun  <ID : Id, reified ELEMENT : Element<ID>> RoutingContext.handleGetElement(
+    storage: Storage<ID, ELEMENT>,
+    id: ID,
+) {
+    storage.get(id)?.let {
+        call.respond(it)
+        return
+    }
+
+    call.respond(HttpStatusCode.NotFound)
+}
+
+suspend inline fun <reified ID : Id, reified ELEMENT : Element<ID>> RoutingContext.handleNewElement(
     store: Store<Action, State>,
     storage: Storage<ID, ELEMENT>,
+    create: (String, Int) -> ID,
 ) {
-    logger.info { "Create new ${storage.getType()}" }
+    val origin = store.getState().modName
+    val index = storage.getNextIndex(origin)
+    val id = create(origin, index)
+
+    logger.info { "Create ${id.print()}" }
 
     try {
-        //store.dispatch(CreateAction(element))
-        call.respond(HttpStatusCode.NoContent)
+        store.dispatch(CreateAction(id))
+        call.respond(id)
     } catch (e: IllegalArgumentException) {
         logger.warn { e.message }
         call.respond(HttpStatusCode.BadRequest)

@@ -7,17 +7,17 @@ import io.ktor.resources.Resource
 
 @Resource("/$USER_TYPE")
 class UserRoutes {
-    @Resource("all")
-    class All(val parent: UserRoutes = UserRoutes())
-
-    @Resource("details")
-    class Details(val id: UserId, val parent: UserRoutes = UserRoutes())
-
-    @Resource("new")
-    class New(val parent: UserRoutes = UserRoutes())
+    @Resource("create")
+    class Create(val parent: UserRoutes = UserRoutes())
 
     @Resource("delete")
     class Delete(val id: UserId, val parent: UserRoutes = UserRoutes())
+
+    @Resource("all")
+    class GetAll(val parent: UserRoutes = UserRoutes())
+
+    @Resource("get")
+    class Get(val id: UserId, val parent: UserRoutes = UserRoutes())
 
     @Resource("update")
     class Update(val user: User, val parent: UserRoutes = UserRoutes())

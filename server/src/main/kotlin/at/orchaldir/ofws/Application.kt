@@ -34,7 +34,7 @@ fun Application.module() {
     (0..10).forEach {
         users.add(User(UserId("test", it)))
     }
-    val state = State(Storage(users))
+    val state = State("app", Storage(users))
     val store = DefaultStore(state, REDUCER, listOf(LogAction()))
 
     routing {
