@@ -11,7 +11,7 @@ import io.ktor.server.routing.*
 
 fun Application.configureUserRouting(store: Store<Action, State>) {
     routing {
-        post<UserRoutes.Create> {
+        get<UserRoutes.Create> {
             handleNewElement(store, store.getState().getUserStorage(), ::UserId)
         }
         get<UserRoutes.GetAll> {

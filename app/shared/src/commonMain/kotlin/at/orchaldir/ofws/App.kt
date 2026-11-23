@@ -58,7 +58,7 @@ fun App() {
             ) {
                 Icon(painter = rememberVectorPainter(Icons.Rounded.Add), "Add User")
             }
-            
+
             LazyColumn(
                 modifier = Modifier
                     .safeContentPadding()
