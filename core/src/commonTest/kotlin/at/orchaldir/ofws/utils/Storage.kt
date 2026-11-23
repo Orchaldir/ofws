@@ -20,22 +20,25 @@ class StoreTest {
 
     @Test
     fun `Get the next index with an element of that origin at index 0`() {
-        assertNextIndex(UserId(origin0, 0), origin0, 1)
+        assertNextIndex(UserId(origin0, 0), 1)
     }
 
     @Test
     fun `Get the next index with an existing element of that origin at a higher index`() {
-        assertNextIndex(UserId(origin0, 10), origin0, 0)
+        assertNextIndex(UserId(origin0, 10), 0)
     }
 
     @Test
     fun `Get the next index with an element of another origin at index 0`() {
-        assertNextIndex(UserId(origin1, 0), origin0, 0)
+        assertNextIndex(UserId(origin1, 0), 0)
     }
 
-    private fun assertNextIndex(id: UserId, origin: String, expected: Int) {
-        val storage = Storage(User(id))
+    private fun assertNextIndex(id: UserId, expected: Int) =
+        assertNextIndex(listOf(id), expected)
 
-        assertEquals(expected, storage.getNextIndex(origin))
+    private fun assertNextIndex(ids: List<UserId>, expected: Int) {
+        val storage = Storage(ids.map { User(it) }, USER_TYPE)
+
+        assertEquals(expected, storage.getNextIndex(origin0))
     }
 }
