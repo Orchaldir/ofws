@@ -3,7 +3,8 @@ package at.orchaldir.ofws.utils
 import at.orchaldir.ofws.model.user.USER_TYPE
 import at.orchaldir.ofws.model.user.User
 import at.orchaldir.ofws.model.user.UserId
-import kotlin.test.*
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 
 class StoreTest {

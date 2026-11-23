@@ -1,11 +1,11 @@
 package at.orchaldir.ofws.network
 
-import at.orchaldir.ofws.routes.UserRoutes
 import at.orchaldir.ofws.model.user.User
 import at.orchaldir.ofws.model.user.UserId
-import io.ktor.client.HttpClient
-import io.ktor.client.call.body
-import io.ktor.client.plugins.resources.get
+import at.orchaldir.ofws.routes.UserRoutes
+import io.ktor.client.*
+import io.ktor.client.call.*
+import io.ktor.client.plugins.resources.*
 
 class UserApi(private val httpClient: HttpClient) {
 

@@ -17,7 +17,7 @@ import at.orchaldir.ofws.model.user.User
 fun UserCard(
     user: User,
     onDelete: (User) -> Unit,
-    onUpdate: (User) -> Unit
+    onUpdate: (User) -> Unit,
 ) {
     Card(
         modifier = Modifier.fillMaxWidth().padding(4.dp),

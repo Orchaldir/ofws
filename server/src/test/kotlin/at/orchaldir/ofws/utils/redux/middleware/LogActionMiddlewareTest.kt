@@ -2,7 +2,8 @@ package at.orchaldir.ofws.utils.redux.middleware
 
 import at.orchaldir.ofws.utils.redux.DefaultStore
 import at.orchaldir.ofws.utils.redux.noFollowUps
-import kotlin.test.*
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class LogActionMiddlewareTest {
 

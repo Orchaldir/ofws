@@ -58,7 +58,7 @@ data class Storage<ID : Id, ELEMENT : Element<ID>>(
             ?: 0
 
         (0..maxIndex).forEach { index ->
-            if (!usedIndices.contains(index )) {
+            if (!usedIndices.contains(index)) {
                 return index
             }
         }

@@ -8,7 +8,7 @@ data class DeleteResult(
     val id: Id,
     val elements: MutableMap<String, MutableSet<Id>> = mutableMapOf(),
 ) {
-    fun <ID: Id> addIds(ids: Collection<ID>): DeleteResult {
+    fun <ID : Id> addIds(ids: Collection<ID>): DeleteResult {
         val first = ids.firstOrNull() ?: return this
 
         elements.getOrPut(first.type()) {

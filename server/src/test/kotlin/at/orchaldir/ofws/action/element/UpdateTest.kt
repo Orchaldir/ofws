@@ -10,7 +10,8 @@ import at.orchaldir.ofws.model.user.User
 import at.orchaldir.ofws.model.user.UserRole
 import at.orchaldir.ofws.model.utils.Name
 import at.orchaldir.ofws.utils.Storage
-import kotlin.test.*
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class UpdateTest {
     private val state = State(Storage(User(USER_ID_0)))

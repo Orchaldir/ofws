@@ -8,7 +8,8 @@ import at.orchaldir.ofws.model.USER_ID_0
 import at.orchaldir.ofws.model.USER_ID_UNKNOWN
 import at.orchaldir.ofws.model.user.User
 import at.orchaldir.ofws.utils.Storage
-import kotlin.test.*
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class DeleteTest {
     private val action = DeleteAction(USER_ID_0)

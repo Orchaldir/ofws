@@ -5,7 +5,7 @@ import at.orchaldir.ofws.model.State
 import at.orchaldir.ofws.model.user.UserId
 import at.orchaldir.ofws.utils.redux.Store
 import io.ktor.server.application.*
-import io.ktor.server.resources.get
+import io.ktor.server.resources.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 

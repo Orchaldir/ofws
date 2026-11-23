@@ -5,8 +5,8 @@ import at.orchaldir.ofws.model.State
 import at.orchaldir.ofws.model.user.User
 import at.orchaldir.ofws.model.user.UserId
 import at.orchaldir.ofws.model.user.UserRole
-import at.orchaldir.ofws.routes.configureUserRouting
 import at.orchaldir.ofws.model.utils.Name
+import at.orchaldir.ofws.routes.configureUserRouting
 import at.orchaldir.ofws.utils.Storage
 import at.orchaldir.ofws.utils.redux.DefaultStore
 import at.orchaldir.ofws.utils.redux.middleware.LogAction
@@ -17,7 +17,7 @@ import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.plugins.cors.routing.*
-import io.ktor.server.resources.Resources
+import io.ktor.server.resources.*
 
 fun main() {
     embeddedServer(Netty, port = 8080, host = "0.0.0.0", module = Application::module)

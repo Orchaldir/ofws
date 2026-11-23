@@ -1,6 +1,7 @@
 package at.orchaldir.ofws.utils.redux
 
-import kotlin.test.*
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class StoreTest {
 

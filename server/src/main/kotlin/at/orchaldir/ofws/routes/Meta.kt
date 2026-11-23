@@ -32,7 +32,7 @@ suspend inline fun RoutingContext.handleDeleteElement(
     }
 }
 
-suspend inline fun  <ID : Id, reified ELEMENT : Element<ID>> RoutingContext.handleGetElement(
+suspend inline fun <ID : Id, reified ELEMENT : Element<ID>> RoutingContext.handleGetElement(
     storage: Storage<ID, ELEMENT>,
     id: ID,
 ) {
