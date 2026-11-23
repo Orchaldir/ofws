@@ -4,9 +4,14 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.safeContentPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import at.orchaldir.ofws.model.User
 import at.orchaldir.ofws.network.UserApi
 import at.orchaldir.ofws.network.createHttpClient
@@ -38,6 +43,18 @@ fun App() {
                     currentUser = null
                 }
             )
+        }
+
+        FloatingActionButton(
+            onClick = {
+                scope.launch {
+                    val id = userApi.createUser()
+                    users = userApi.getAllUsers()
+                    currentUser = users.firstOrNull { it.id == id }
+                }
+            },
+        ) {
+            Icon(painter = rememberVectorPainter(Icons.Rounded.Add), "Add User")
         }
 
         LazyColumn(
