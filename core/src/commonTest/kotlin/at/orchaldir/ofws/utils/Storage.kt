@@ -13,14 +13,23 @@ class StoreTest {
 
     @Test
     fun `Get the next index of an empty storage`() {
-        val storage = Storage<UserId, User>(USER_TYPE)
-
-        assertEquals(0, storage.getNextIndex(origin0))
+        assertNextIndex(emptyList(), 0)
     }
 
     @Test
     fun `Get the next index with an element of that origin at index 0`() {
         assertNextIndex(UserId(origin0, 0), 1)
+    }
+
+    @Test
+    fun `Get the next index with multiple elements of that origin at index 0`() {
+        val ids = listOf(
+            UserId(origin0, 0),
+            UserId(origin0, 1),
+            UserId(origin0, 3),
+        )
+
+        assertNextIndex(ids, 2)
     }
 
     @Test
