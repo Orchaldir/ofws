@@ -1,5 +1,6 @@
 package at.orchaldir.ofws
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.safeContentPadding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -45,36 +46,38 @@ fun App() {
             )
         }
 
-        FloatingActionButton(
-            onClick = {
-                scope.launch {
-                    val id = userApi.createUser()
-                    users = userApi.getAllUsers()
-                    currentUser = users.firstOrNull { it.id == id }
-                }
-            },
-        ) {
-            Icon(painter = rememberVectorPainter(Icons.Rounded.Add), "Add User")
-        }
-
-        LazyColumn(
-            modifier = Modifier
-                .safeContentPadding()
-                .fillMaxSize()
-        ) {
-            items(users) { user ->
-                UserCard(
-                    user,
-                    onDelete = {
-                        scope.launch {
-                            userApi.deleteUser(it)
-                            users = userApi.getAllUsers()
-                        }
-                    },
-                    onUpdate = {
-                        currentUser = user
+        Column {
+            FloatingActionButton(
+                onClick = {
+                    scope.launch {
+                        val id = userApi.createUser()
+                        users = userApi.getAllUsers()
+                        currentUser = users.firstOrNull { it.id == id }
                     }
-                )
+                },
+            ) {
+                Icon(painter = rememberVectorPainter(Icons.Rounded.Add), "Add User")
+            }
+            
+            LazyColumn(
+                modifier = Modifier
+                    .safeContentPadding()
+                    .fillMaxSize()
+            ) {
+                items(users) { user ->
+                    UserCard(
+                        user,
+                        onDelete = {
+                            scope.launch {
+                                userApi.deleteUser(it)
+                                users = userApi.getAllUsers()
+                            }
+                        },
+                        onUpdate = {
+                            currentUser = user
+                        }
+                    )
+                }
             }
         }
     }
