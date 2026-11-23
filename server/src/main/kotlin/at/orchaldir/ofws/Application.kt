@@ -33,11 +33,6 @@ fun Application.module() {
     val state = State(Storage(admin), "app")
     val store = DefaultStore(state, REDUCER, listOf(LogAction()))
 
-    routing {
-        get("/") {
-            call.respondText(sayHello("Ktor"))
-        }
-    }
     configureUserRouting(store)
 }
 
