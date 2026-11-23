@@ -13,7 +13,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
-import at.orchaldir.ofws.model.User
+import at.orchaldir.ofws.model.user.User
 import at.orchaldir.ofws.network.UserApi
 import at.orchaldir.ofws.network.createHttpClient
 import at.orchaldir.ofws.ui.UserCard

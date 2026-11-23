@@ -2,9 +2,9 @@ package at.orchaldir.ofws
 
 import at.orchaldir.ofws.action.REDUCER
 import at.orchaldir.ofws.model.State
-import at.orchaldir.ofws.model.User
-import at.orchaldir.ofws.model.UserId
-import at.orchaldir.ofws.model.UserRole
+import at.orchaldir.ofws.model.user.User
+import at.orchaldir.ofws.model.user.UserId
+import at.orchaldir.ofws.model.user.UserRole
 import at.orchaldir.ofws.routes.configureUserRouting
 import at.orchaldir.ofws.model.utils.Name
 import at.orchaldir.ofws.utils.Storage
@@ -18,8 +18,6 @@ import io.ktor.server.netty.*
 import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.plugins.cors.routing.*
 import io.ktor.server.resources.Resources
-import io.ktor.server.response.*
-import io.ktor.server.routing.*
 
 fun main() {
     embeddedServer(Netty, port = 8080, host = "0.0.0.0", module = Application::module)

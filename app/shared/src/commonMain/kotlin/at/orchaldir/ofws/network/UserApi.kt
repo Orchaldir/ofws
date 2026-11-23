@@ -1,8 +1,8 @@
 package at.orchaldir.ofws.network
 
 import at.orchaldir.ofws.routes.UserRoutes
-import at.orchaldir.ofws.model.User
-import at.orchaldir.ofws.model.UserId
+import at.orchaldir.ofws.model.user.User
+import at.orchaldir.ofws.model.user.UserId
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.resources.get

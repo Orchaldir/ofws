@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import at.orchaldir.ofws.model.User
+import at.orchaldir.ofws.model.user.User
 
 @Composable
 fun UserCard(

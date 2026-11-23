@@ -6,7 +6,7 @@ import at.orchaldir.ofws.assertIllegalArgument
 import at.orchaldir.ofws.model.State
 import at.orchaldir.ofws.model.USER_ID_0
 import at.orchaldir.ofws.model.USER_ID_UNKNOWN
-import at.orchaldir.ofws.model.User
+import at.orchaldir.ofws.model.user.User
 import at.orchaldir.ofws.utils.Storage
 import kotlin.test.*
 

@@ -1,5 +1,8 @@
 package at.orchaldir.ofws.model
 
+import at.orchaldir.ofws.model.user.USER_TYPE
+import at.orchaldir.ofws.model.user.User
+import at.orchaldir.ofws.model.user.UserId
 import at.orchaldir.ofws.utils.Element
 import at.orchaldir.ofws.utils.Id
 import at.orchaldir.ofws.utils.Storage

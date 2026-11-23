@@ -2,7 +2,7 @@ package at.orchaldir.ofws.routes
 
 import at.orchaldir.ofws.action.Action
 import at.orchaldir.ofws.model.State
-import at.orchaldir.ofws.model.UserId
+import at.orchaldir.ofws.model.user.UserId
 import at.orchaldir.ofws.utils.redux.Store
 import io.ktor.server.application.*
 import io.ktor.server.resources.get

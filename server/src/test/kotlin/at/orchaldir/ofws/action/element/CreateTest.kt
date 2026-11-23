@@ -4,7 +4,7 @@ import at.orchaldir.ofws.action.CreateAction
 import at.orchaldir.ofws.action.REDUCER
 import at.orchaldir.ofws.model.State
 import at.orchaldir.ofws.model.USER_ID_0
-import at.orchaldir.ofws.model.User
+import at.orchaldir.ofws.model.user.User
 import at.orchaldir.ofws.utils.Storage
 import kotlin.test.*
 
