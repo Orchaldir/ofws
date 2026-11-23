@@ -30,7 +30,7 @@ fun Application.module() {
     install()
 
     val admin = User(UserId("app", 0), Name.init("Admin"), UserRole.Admin)
-    val state = State("app", Storage(admin))
+    val state = State(Storage(admin), "app")
     val store = DefaultStore(state, REDUCER, listOf(LogAction()))
 
     routing {

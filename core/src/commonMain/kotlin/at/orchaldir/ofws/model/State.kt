@@ -10,18 +10,18 @@ val ELEMENTS =
     )
 
 data class State(
-    val modName: String,
     val storageMap: Map<String, Storage<*, *>> = emptyMap(),
+    val modName: String = "unknown",
 ) {
     constructor(
-        modName: String,
         storage: Storage<*, *>,
-    ) : this(modName, mapOf(storage.getType() to storage))
+        modName: String = "unknown",
+    ) : this(mapOf(storage.getType() to storage), modName)
 
     constructor(
-        modName: String,
         storageList: List<Storage<*, *>>,
-    ) : this(modName, storageList.associateBy { it.getType() })
+        modName: String = "unknown",
+    ) : this(storageList.associateBy { it.getType() }, modName)
 
     fun getUserStorage() = getStorage<UserId, User>(USER_TYPE)
 
