@@ -3,7 +3,7 @@ package at.orchaldir.ofws.model
 import at.orchaldir.ofws.utils.DeleteResult
 import at.orchaldir.ofws.utils.Element
 import at.orchaldir.ofws.utils.Id
-import at.orchaldir.ofws.utils.Name
+import at.orchaldir.ofws.model.utils.Name
 import kotlinx.serialization.Serializable
 
 const val USER_TYPE = "User"

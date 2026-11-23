@@ -6,7 +6,7 @@ import at.orchaldir.ofws.model.User
 import at.orchaldir.ofws.model.UserId
 import at.orchaldir.ofws.model.UserRole
 import at.orchaldir.ofws.routes.configureUserRouting
-import at.orchaldir.ofws.utils.Name
+import at.orchaldir.ofws.model.utils.Name
 import at.orchaldir.ofws.utils.Storage
 import at.orchaldir.ofws.utils.redux.DefaultStore
 import at.orchaldir.ofws.utils.redux.middleware.LogAction

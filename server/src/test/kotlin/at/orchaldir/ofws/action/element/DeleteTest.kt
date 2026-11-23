@@ -11,8 +11,8 @@ import at.orchaldir.ofws.utils.Storage
 import kotlin.test.*
 
 class DeleteTest {
-    val action = DeleteAction(USER_ID_0)
-    val state = State(Storage(User(USER_ID_0)))
+    private val action = DeleteAction(USER_ID_0)
+    private val state = State(Storage(User(USER_ID_0)))
 
     @Test
     fun `Can delete an existing element`() {

@@ -8,7 +8,7 @@ import at.orchaldir.ofws.model.USER_ID_0
 import at.orchaldir.ofws.model.USER_ID_UNKNOWN
 import at.orchaldir.ofws.model.User
 import at.orchaldir.ofws.model.UserRole
-import at.orchaldir.ofws.utils.Name
+import at.orchaldir.ofws.model.utils.Name
 import at.orchaldir.ofws.utils.Storage
 import kotlin.test.*
 

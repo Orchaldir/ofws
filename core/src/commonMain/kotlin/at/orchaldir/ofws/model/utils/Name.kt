@@ -1,5 +1,6 @@
-package at.orchaldir.ofws.utils
+package at.orchaldir.ofws.model.utils
 
+import at.orchaldir.ofws.utils.Id
 import kotlinx.serialization.Serializable
 import kotlin.jvm.JvmInline
 
