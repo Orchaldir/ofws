@@ -1,47 +1,82 @@
 package at.orchaldir.ofws
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.safeContentPadding
-import androidx.compose.material3.Button
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Add
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import org.jetbrains.compose.resources.painterResource
-
-import ofws.app.shared.generated.resources.Res
-import ofws.app.shared.generated.resources.compose_multiplatform
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
+import at.orchaldir.ofws.model.user.User
+import at.orchaldir.ofws.network.UserApi
+import at.orchaldir.ofws.network.createHttpClient
+import at.orchaldir.ofws.ui.UserCard
+import at.orchaldir.ofws.ui.UserUpdateDialog
+import kotlinx.coroutines.launch
 
 @Composable
-@Preview
 fun App() {
     MaterialTheme {
-        var showContent by remember { mutableStateOf(false) }
-        Column(
-            modifier = Modifier
-                .background(MaterialTheme.colorScheme.primaryContainer)
-                .safeContentPadding()
-                .fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            Button(onClick = { showContent = !showContent }) {
-                Text("Click me!")
+        val httpClient = createHttpClient()
+        val userApi = remember { UserApi(httpClient) }
+        var users by remember { mutableStateOf(emptyList<User>()) }
+        val scope = rememberCoroutineScope()
+        var currentUser by remember { mutableStateOf<User?>(null) }
+
+        LaunchedEffect(Unit) {
+            users = userApi.getAllUsers()
+        }
+
+        if (currentUser != null) {
+            UserUpdateDialog(
+                currentUser!!,
+                onConfirm = {
+                    scope.launch {
+                        userApi.updateUser(it)
+                        users = userApi.getAllUsers()
+                    }
+                    currentUser = null
+                }
+            )
+        }
+
+        Column {
+            FloatingActionButton(
+                onClick = {
+                    scope.launch {
+                        val id = userApi.createUser()
+                        users = userApi.getAllUsers()
+                        currentUser = users.firstOrNull { it.id == id }
+                    }
+                },
+            ) {
+                Icon(painter = rememberVectorPainter(Icons.Rounded.Add), "Add User")
             }
-            AnimatedVisibility(showContent) {
-                val greeting = remember { Greeting().greet() }
-                Column(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                ) {
-                    Image(painterResource(Res.drawable.compose_multiplatform), null)
-                    Text("Compose: $greeting")
+
+            LazyColumn(
+                modifier = Modifier
+                    .safeContentPadding()
+                    .fillMaxSize()
+            ) {
+                items(users) { user ->
+                    UserCard(
+                        user,
+                        onDelete = {
+                            scope.launch {
+                                userApi.deleteUser(it)
+                                users = userApi.getAllUsers()
+                            }
+                        },
+                        onUpdate = {
+                            currentUser = user
+                        }
+                    )
                 }
             }
         }

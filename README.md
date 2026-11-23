@@ -26,6 +26,16 @@ Use the run configurations provided by the run widget in your IDE's toolbar. You
   - Wasm target (faster, modern browsers): `./gradlew :app:webApp:wasmJsBrowserDevelopmentRun`
   - JS target (slower, supports older browsers): `./gradlew :app:webApp:jsBrowserDevelopmentRun`
 
+#### Troubleshooting
+
+> Run the `kotlinUpgradeYarnLock` task to actualize lock file
+
+Execute:
+
+> ./gradlew kotlinUpgradeYarnLock
+
+in the ofws folder.
+
 ### Running tests
 
 Use the run button in your IDE's editor gutter, or run tests using Gradle tasks:

@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.kotlinJvm)
     alias(libs.plugins.ktor)
+    alias(libs.plugins.kotlinSerialization)
 }
 
 group = "at.orchaldir.ofws"
@@ -11,9 +12,14 @@ application {
 
 dependencies {
     api(project(":core"))
+    implementation(libs.kotlin.logging)
     implementation(libs.logback)
-    implementation(libs.ktor.serverCore)
-    implementation(libs.ktor.serverNetty)
-    testImplementation(libs.ktor.serverTestHost)
+    implementation(ktorLibs.serialization.kotlinx.json)
+    implementation(ktorLibs.server.contentNegotiation)
+    implementation(ktorLibs.server.core)
+    implementation(ktorLibs.server.cors)
+    implementation(ktorLibs.server.netty)
+    implementation(ktorLibs.server.resources)
+    testImplementation(ktorLibs.server.testHost)
     testImplementation(libs.kotlin.testJunit)
 }
