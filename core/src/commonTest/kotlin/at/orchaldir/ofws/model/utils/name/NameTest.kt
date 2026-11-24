@@ -1,5 +1,6 @@
 package at.orchaldir.ofws.model.utils.name
 
+import at.orchaldir.ofws.assertIllegalArgument
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -20,7 +21,8 @@ class NameTest {
 
     @Test
     fun `The name cannot be empty`() {
-        assertEquals("A", Name.init("a").text)
-        assertEquals("Test", Name.init("test ").text)
+        assertIllegalArgument("Name is empty!") {
+            Name.init("")
+        }
     }
 }
