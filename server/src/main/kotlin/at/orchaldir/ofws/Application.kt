@@ -2,11 +2,14 @@ package at.orchaldir.ofws
 
 import at.orchaldir.ofws.action.REDUCER
 import at.orchaldir.ofws.model.State
+import at.orchaldir.ofws.model.rpg.statistic.Statistic
+import at.orchaldir.ofws.model.rpg.statistic.StatisticId
 import at.orchaldir.ofws.model.user.User
 import at.orchaldir.ofws.model.user.UserId
 import at.orchaldir.ofws.model.user.UserRole
 import at.orchaldir.ofws.model.utils.name.Name
 import at.orchaldir.ofws.routes.configureUserRouting
+import at.orchaldir.ofws.routes.rpg.configureStatisticRouting
 import at.orchaldir.ofws.utils.Storage
 import at.orchaldir.ofws.utils.redux.DefaultStore
 import at.orchaldir.ofws.utils.redux.middleware.LogAction
@@ -27,10 +30,18 @@ fun main() {
 fun Application.module() {
     install()
 
-    val admin = User(UserId("app", 0), Name.init("Admin"), UserRole.Admin)
-    val state = State(Storage(admin), "app")
+    val origin = "app"
+    val admin = User(UserId(origin, 0), Name.init("Admin"), UserRole.Admin)
+    val statistics = (0..10)
+        .map { Statistic(StatisticId(origin, it)) }
+    val storages = listOf(
+        Storage(admin),
+        Storage(statistics),
+    )
+    val state = State(storages, origin)
     val store = DefaultStore(state, REDUCER, listOf(LogAction()))
 
+    configureStatisticRouting(store)
     configureUserRouting(store)
 }
 
