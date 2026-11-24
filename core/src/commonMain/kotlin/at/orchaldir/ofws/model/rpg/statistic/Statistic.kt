@@ -25,6 +25,7 @@ data class StatisticId(
 data class Statistic(
     val id: StatisticId,
     val name: Name = Name.init(id),
+    val data: StatisticData = Attribute(),
 ) : Element<StatisticId> {
 
     override fun id() = id
