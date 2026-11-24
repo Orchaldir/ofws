@@ -12,7 +12,7 @@ value class NotEmptyString private constructor(val text: String) {
     }
 
     init {
-        require(text.isNotEmpty()) { "Text is empty!" }
+        require(text.isNotEmpty()) { "NotEmptyString is empty!" }
     }
 
 }
