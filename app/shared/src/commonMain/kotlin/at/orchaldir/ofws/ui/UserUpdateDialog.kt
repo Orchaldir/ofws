@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import at.orchaldir.ofws.model.user.User
 import at.orchaldir.ofws.model.user.UserRole
-import at.orchaldir.ofws.model.utils.Name
+import at.orchaldir.ofws.model.utils.name.Name
 
 @Composable
 fun UserUpdateDialog(

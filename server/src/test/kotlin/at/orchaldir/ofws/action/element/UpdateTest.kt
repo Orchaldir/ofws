@@ -8,7 +8,7 @@ import at.orchaldir.ofws.model.USER_ID_0
 import at.orchaldir.ofws.model.USER_ID_UNKNOWN
 import at.orchaldir.ofws.model.user.User
 import at.orchaldir.ofws.model.user.UserRole
-import at.orchaldir.ofws.model.utils.Name
+import at.orchaldir.ofws.model.utils.name.Name
 import at.orchaldir.ofws.utils.Storage
 import kotlin.test.Test
 import kotlin.test.assertEquals

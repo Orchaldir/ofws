@@ -1,7 +1,7 @@
 package at.orchaldir.ofws.model.rpg.statistic
 
 import at.orchaldir.ofws.model.State
-import at.orchaldir.ofws.model.utils.Name
+import at.orchaldir.ofws.model.utils.name.Name
 import at.orchaldir.ofws.utils.DeleteResult
 import at.orchaldir.ofws.utils.Element
 import at.orchaldir.ofws.utils.Id

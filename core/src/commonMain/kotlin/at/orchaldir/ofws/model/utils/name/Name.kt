@@ -1,4 +1,4 @@
-package at.orchaldir.ofws.model.utils
+package at.orchaldir.ofws.model.utils.name
 
 import at.orchaldir.ofws.utils.Id
 import kotlinx.serialization.Serializable

@@ -5,7 +5,7 @@ import at.orchaldir.ofws.model.State
 import at.orchaldir.ofws.model.user.User
 import at.orchaldir.ofws.model.user.UserId
 import at.orchaldir.ofws.model.user.UserRole
-import at.orchaldir.ofws.model.utils.Name
+import at.orchaldir.ofws.model.utils.name.Name
 import at.orchaldir.ofws.routes.configureUserRouting
 import at.orchaldir.ofws.utils.Storage
 import at.orchaldir.ofws.utils.redux.DefaultStore
