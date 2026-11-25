@@ -2,6 +2,10 @@ package at.orchaldir.ofws
 
 import at.orchaldir.ofws.action.REDUCER
 import at.orchaldir.ofws.model.State
+import at.orchaldir.ofws.model.rpg.statistic.Attribute
+import at.orchaldir.ofws.model.rpg.statistic.DerivedAttribute
+import at.orchaldir.ofws.model.rpg.statistic.DivisionOfValues
+import at.orchaldir.ofws.model.rpg.statistic.FixedNumber
 import at.orchaldir.ofws.model.rpg.statistic.Statistic
 import at.orchaldir.ofws.model.rpg.statistic.StatisticId
 import at.orchaldir.ofws.model.user.User
@@ -21,6 +25,7 @@ import io.ktor.server.netty.*
 import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.plugins.cors.routing.*
 import io.ktor.server.resources.*
+import io.ktor.util.Attributes
 
 fun main() {
     embeddedServer(Netty, port = 8080, host = "0.0.0.0", module = Application::module)
@@ -32,8 +37,10 @@ fun Application.module() {
 
     val origin = "app"
     val admin = User(UserId(origin, 0), Name.init("Admin"), UserRole.Admin)
-    val statistics = (0..10)
-        .map { Statistic(StatisticId(origin, it)) }
+    val statistics = listOf(
+        Statistic(StatisticId(origin, 0)),
+        Statistic(StatisticId(origin, 1), data = DerivedAttribute(DivisionOfValues(FixedNumber(10), FixedNumber(3)))),
+    )
     val storages = listOf(
         Storage(admin),
         Storage(statistics),
