@@ -19,6 +19,7 @@ import at.orchaldir.ofws.model.rpg.statistic.Statistic
 import at.orchaldir.ofws.network.rpg.StatisticApi
 import at.orchaldir.ofws.ui.UserCard
 import at.orchaldir.ofws.ui.UserUpdateDialog
+import at.orchaldir.ofws.ui.utils.DisplayUnitOfMeasurement
 import com.mamon.tablekmp.component.Table
 import com.mamon.tablekmp.model.TableColors
 import com.mamon.tablekmp.model.TableColumn
@@ -37,6 +38,7 @@ fun StatisticScreen(
         TableColumn<Statistic>("Name") { Text(it.name.text) },
         TableColumn<Statistic>("Type") { Text(it.data.getType().name) },
         TableColumn<Statistic>("Base Value") { DisplayStatisticBasedValue(it.data.baseValue()) },
+        TableColumn<Statistic>("Unit") { DisplayUnitOfMeasurement(it.data.unit(), false) },
     )
 
     LaunchedEffect(Unit) {
