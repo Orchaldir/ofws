@@ -34,9 +34,9 @@ fun StatisticScreen(
     var statistics by remember { mutableStateOf(emptyList<Statistic>()) }
     val scope = rememberCoroutineScope()
     val columns = listOf(
-        TableColumn<Statistic>("Name", weight = 2f) { statistic -> Text(statistic.name.text) },
-        TableColumn<Statistic>("Type", weight = 1f) { statistic -> Text(statistic.data.getType().name) },
-        TableColumn<Statistic>("Base Value", weight = 1f) { statistic -> DisplayStatisticBasedValue(statistic.data.baseValue()) },
+        TableColumn<Statistic>("Name") { Text(it.name.text) },
+        TableColumn<Statistic>("Type") { Text(it.data.getType().name) },
+        TableColumn<Statistic>("Base Value") { DisplayStatisticBasedValue(it.data.baseValue()) },
     )
 
     LaunchedEffect(Unit) {
