@@ -12,6 +12,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.text.font.FontWeight
 import at.orchaldir.ofws.model.rpg.statistic.Statistic
@@ -19,6 +20,7 @@ import at.orchaldir.ofws.network.rpg.StatisticApi
 import at.orchaldir.ofws.ui.UserCard
 import at.orchaldir.ofws.ui.UserUpdateDialog
 import com.mamon.tablekmp.component.Table
+import com.mamon.tablekmp.model.TableColors
 import com.mamon.tablekmp.model.TableColumn
 import io.ktor.client.*
 import io.ktor.websocket.Frame
@@ -32,7 +34,7 @@ fun StatisticScreen(
     var statistics by remember { mutableStateOf(emptyList<Statistic>()) }
     val scope = rememberCoroutineScope()
     val columns = listOf(
-        TableColumn<Statistic>("Name", weight = 2f) { user -> Text(user.name.text, fontWeight = FontWeight.Bold) },
+        TableColumn<Statistic>("Name", weight = 2f) { user -> Text(user.name.text) },
         TableColumn<Statistic>("Type", weight = 1f) { user -> Text(user.data.getType().name) },
     )
 
@@ -54,7 +56,10 @@ fun StatisticScreen(
 
         Table(
             items = statistics,
-            columns = columns
+            columns = columns,
+            colors = TableColors(
+                headerContainerColor = Color.Gray,
+            ),
         )
     }
 }
