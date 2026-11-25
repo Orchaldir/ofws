@@ -2,10 +2,14 @@ package at.orchaldir.ofws.network.rpg
 
 import at.orchaldir.ofws.model.rpg.statistic.Statistic
 import at.orchaldir.ofws.model.rpg.statistic.StatisticId
+import at.orchaldir.ofws.routes.UserRoutes
 import at.orchaldir.ofws.routes.rpg.StatisticRoutes
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.plugins.resources.*
+import io.ktor.client.request.setBody
+import io.ktor.http.ContentType
+import io.ktor.http.contentType
 
 class StatisticApi(private val httpClient: HttpClient) {
 
@@ -22,6 +26,9 @@ class StatisticApi(private val httpClient: HttpClient) {
         httpClient.get(StatisticRoutes.GetAll()).body()
 
     suspend fun updateStatistic(statistic: Statistic) {
-        httpClient.get(StatisticRoutes.Update(statistic))
+        httpClient.post(StatisticRoutes()) {
+            contentType(ContentType.Application.Json)
+            setBody(statistic)
+        }
     }
 }

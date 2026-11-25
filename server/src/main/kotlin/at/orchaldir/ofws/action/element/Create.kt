@@ -2,6 +2,8 @@ package at.orchaldir.ofws.action.element
 
 import at.orchaldir.ofws.action.Action
 import at.orchaldir.ofws.model.State
+import at.orchaldir.ofws.model.rpg.statistic.Statistic
+import at.orchaldir.ofws.model.rpg.statistic.StatisticId
 import at.orchaldir.ofws.model.user.User
 import at.orchaldir.ofws.model.user.UserId
 import at.orchaldir.ofws.utils.Element
@@ -14,6 +16,7 @@ fun reduceCreateElement(
 ): Pair<State, List<Action>> {
     val element = when (id) {
         is UserId -> User(id)
+        is StatisticId -> Statistic(id)
         else -> error("Creating is not supported!")
     }
 

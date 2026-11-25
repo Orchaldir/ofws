@@ -18,7 +18,4 @@ class StatisticRoutes {
 
     @Resource("get")
     class Get(val id: StatisticId, val parent: StatisticRoutes = StatisticRoutes())
-
-    @Resource("update")
-    class Update(val statistic: Statistic, val parent: StatisticRoutes = StatisticRoutes())
 }

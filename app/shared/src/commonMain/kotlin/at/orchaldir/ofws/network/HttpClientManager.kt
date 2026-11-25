@@ -10,10 +10,7 @@ import kotlinx.serialization.json.Json
 fun createHttpClient() = HttpClient {
     install(ContentNegotiation) {
         json(Json {
-            encodeDefaults = true
-            isLenient = true
-            coerceInputValues = true
-            ignoreUnknownKeys = true
+            classDiscriminator = "#type"
         })
     }
     install(Resources)
