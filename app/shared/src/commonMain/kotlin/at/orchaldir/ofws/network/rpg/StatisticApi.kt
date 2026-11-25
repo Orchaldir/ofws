@@ -12,7 +12,7 @@ class StatisticApi(private val httpClient: HttpClient) {
     suspend fun createStatistic(): StatisticId =
         httpClient.get(StatisticRoutes.Create()).body()
 
-    suspend fun deleteStatistic(user: Statistic) = deleteStatistic(user.id)
+    suspend fun deleteStatistic(statistic: Statistic) = deleteStatistic(statistic.id)
 
     suspend fun deleteStatistic(id: StatisticId) {
         httpClient.get(StatisticRoutes.Delete(id))

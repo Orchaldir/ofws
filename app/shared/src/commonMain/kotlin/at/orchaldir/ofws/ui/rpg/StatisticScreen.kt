@@ -1,14 +1,17 @@
 package at.orchaldir.ofws.ui.rpg
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.safeContentPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
+import androidx.compose.material.icons.rounded.Delete
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -40,6 +43,20 @@ fun StatisticScreen(
         TableColumn("Cost") { DisplayStatisticCost(it.data.cost(), false) },
         TableColumn("Base Value") { DisplayStatisticBasedValue(it.data.baseValue()) },
         TableColumn("Unit") { DisplayUnitOfMeasurement(it.data.unit(), false) },
+        TableColumn("Actions") {
+            Row {
+                IconButton(
+                    onClick = {
+                        scope.launch {
+                            statisticApi.deleteStatistic(it)
+                            statistics = statisticApi.getAllStatistics()
+                        }
+                    },
+                ) {
+                    Icon(painter = rememberVectorPainter(Icons.Rounded.Delete), "Delete")
+                }
+            }
+        },
     )
 
     LaunchedEffect(Unit) {
