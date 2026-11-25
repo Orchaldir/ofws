@@ -6,7 +6,7 @@ import at.orchaldir.ofws.model.utils.PrefixedUnit
 import at.orchaldir.ofws.model.utils.SuffixedUnit
 import at.orchaldir.ofws.model.utils.UnitOfMeasurement
 import at.orchaldir.ofws.model.utils.Unitless
-import at.orchaldir.ofws.ui.doNothing
+import at.orchaldir.ofws.utils.doNothing
 
 @Composable
 fun DisplayUnitOfMeasurement(
