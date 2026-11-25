@@ -6,8 +6,11 @@ import at.orchaldir.ofws.model.rpg.statistic.Attribute
 import at.orchaldir.ofws.model.rpg.statistic.DerivedAttribute
 import at.orchaldir.ofws.model.rpg.statistic.DivisionOfValues
 import at.orchaldir.ofws.model.rpg.statistic.FixedNumber
+import at.orchaldir.ofws.model.rpg.statistic.ProductOfValues
+import at.orchaldir.ofws.model.rpg.statistic.Skill
 import at.orchaldir.ofws.model.rpg.statistic.Statistic
 import at.orchaldir.ofws.model.rpg.statistic.StatisticId
+import at.orchaldir.ofws.model.rpg.statistic.SumOfValues
 import at.orchaldir.ofws.model.user.User
 import at.orchaldir.ofws.model.user.UserId
 import at.orchaldir.ofws.model.user.UserRole
@@ -40,6 +43,8 @@ fun Application.module() {
     val statistics = listOf(
         Statistic(StatisticId(origin, 0)),
         Statistic(StatisticId(origin, 1), data = DerivedAttribute(DivisionOfValues(FixedNumber(10), FixedNumber(3)))),
+        Statistic(StatisticId(origin, 2), data = Skill(SumOfValues(listOf(FixedNumber(10), FixedNumber(3))))),
+        Statistic(StatisticId(origin, 3), data = Skill(ProductOfValues(listOf(FixedNumber(10), FixedNumber(3))))),
     )
     val storages = listOf(
         Storage(admin),
