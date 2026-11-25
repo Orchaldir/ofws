@@ -1,5 +1,6 @@
 package at.orchaldir.ofws.ui.rpg
 
+import androidx.compose.foundation.layout.Row
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import at.orchaldir.ofws.model.rpg.statistic.*
@@ -7,14 +8,24 @@ import at.orchaldir.ofws.model.rpg.statistic.*
 @Composable
 fun DisplayStatisticBasedValue(
     value: StatisticBasedValue,
+) {
+    Row {
+        InternalStatisticBasedValue(value, true)
+    }
+}
+
+@Composable
+private fun InternalStatisticBasedValue(
+    value: StatisticBasedValue,
     isTopLevel: Boolean = true,
 ) {
     when (value) {
-        is DivisionOfValues -> brackets(isTopLevel) {
-            DisplayStatisticBasedValue(value.dividend, false)
+        is DivisionOfValues -> Brackets(isTopLevel) {
+            InternalStatisticBasedValue(value.dividend, false)
             Text(" / ")
-            DisplayStatisticBasedValue(value.divisor, false)
+            InternalStatisticBasedValue(value.divisor, false)
         }
+
         is FixedNumber -> Text(value.default.toString())
         is ProductOfValues -> TODO()
         is StatisticLookup -> TODO()
@@ -22,8 +33,8 @@ fun DisplayStatisticBasedValue(
     }
 }
 
-@Composable
-private fun brackets(
+ @Composable
+private fun Brackets(
     isTopLevel: Boolean,
     content: @Composable () -> Unit,
 ) {
