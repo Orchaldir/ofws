@@ -30,6 +30,7 @@ kotlin {
             implementation(libs.compose.uiToolingPreview)
             implementation(libs.androidx.lifecycle.viewmodelCompose)
             implementation(libs.androidx.lifecycle.runtimeCompose)
+            implementation(libs.table)
             implementation(ktorLibs.client.core)
             implementation(ktorLibs.client.contentNegotiation)
             implementation(ktorLibs.client.resources)

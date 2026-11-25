@@ -11,6 +11,7 @@ logback = "1.6.7"
 material = "1.7.3"
 material3 = "1.12.0-alpha03"
 kotlinx-serialization-json = "1.11.0"
+table = "1.0.1"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -30,6 +31,7 @@ kotlin-logging = { module = "io.github.microutils:kotlin-logging-jvm", version.r
 logback = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
 wrappers-browser = { module = "org.jetbrains.kotlin-wrappers:kotlin-browser", version.ref = "kotlin-wrappers" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization-json" }
+table = { module = "io.github.mamon-aburawi:table-kmp", version.ref = "table" }
 
 [plugins]
 composeMultiplatform = { id = "org.jetbrains.compose", version.ref = "composeMultiplatform" }
