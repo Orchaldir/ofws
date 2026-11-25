@@ -78,9 +78,9 @@ fun StatisticScreen(
     if (currentStatistic != null) {
         StatisticUpdateDialog(
             currentStatistic!!,
-            onConfirm = {
+            onConfirm = { newStatistic ->
                 scope.launch {
-                    statisticApi.updateStatistic(it)
+                    statisticApi.updateStatistic(newStatistic)
                     statistics = statisticApi.getAllStatistics()
                 }
                 currentStatistic = null

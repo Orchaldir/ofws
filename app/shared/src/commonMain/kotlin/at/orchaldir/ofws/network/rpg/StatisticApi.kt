@@ -21,7 +21,7 @@ class StatisticApi(private val httpClient: HttpClient) {
     suspend fun getAllStatistics(): List<Statistic> =
         httpClient.get(StatisticRoutes.GetAll()).body()
 
-    suspend fun updateStatistic(user: Statistic) {
-        httpClient.get(StatisticRoutes.Update(user))
+    suspend fun updateStatistic(statistic: Statistic) {
+        httpClient.get(StatisticRoutes.Update(statistic))
     }
 }
