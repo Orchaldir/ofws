@@ -7,6 +7,7 @@ import io.ktor.resources.*
 
 @Resource("/$USER_TYPE")
 class UserRoutes {
+
     @Resource("create")
     class Create(val parent: UserRoutes = UserRoutes())
 
@@ -19,6 +20,4 @@ class UserRoutes {
     @Resource("get")
     class Get(val id: UserId, val parent: UserRoutes = UserRoutes())
 
-    @Resource("update")
-    class Update(val user: User, val parent: UserRoutes = UserRoutes())
 }

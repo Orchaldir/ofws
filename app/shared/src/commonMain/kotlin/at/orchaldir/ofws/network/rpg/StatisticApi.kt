@@ -2,7 +2,6 @@ package at.orchaldir.ofws.network.rpg
 
 import at.orchaldir.ofws.model.rpg.statistic.Statistic
 import at.orchaldir.ofws.model.rpg.statistic.StatisticId
-import at.orchaldir.ofws.routes.UserRoutes
 import at.orchaldir.ofws.routes.rpg.StatisticRoutes
 import io.ktor.client.*
 import io.ktor.client.call.*
