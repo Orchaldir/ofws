@@ -9,6 +9,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.Delete
+import androidx.compose.material.icons.rounded.Edit
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -19,6 +20,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.text.font.FontWeight
 import at.orchaldir.ofws.model.rpg.statistic.Statistic
+import at.orchaldir.ofws.model.user.User
 import at.orchaldir.ofws.network.rpg.StatisticApi
 import at.orchaldir.ofws.ui.UserCard
 import at.orchaldir.ofws.ui.UserUpdateDialog
@@ -36,6 +38,7 @@ fun StatisticScreen(
 ) {
     val statisticApi = remember { StatisticApi(client) }
     var statistics by remember { mutableStateOf(emptyList<Statistic>()) }
+    var currentStatistic by remember { mutableStateOf<Statistic?>(null) }
     val scope = rememberCoroutineScope()
     val columns = listOf<TableColumn<Statistic>>(
         TableColumn("Name") { Text(it.name.text) },
@@ -43,12 +46,21 @@ fun StatisticScreen(
         TableColumn("Cost") { DisplayStatisticCost(it.data.cost(), false) },
         TableColumn("Base Value") { DisplayStatisticBasedValue(it.data.baseValue()) },
         TableColumn("Unit") { DisplayUnitOfMeasurement(it.data.unit(), false) },
-        TableColumn("Actions") {
+        TableColumn("Actions") { statistic ->
             Row {
                 IconButton(
                     onClick = {
                         scope.launch {
-                            statisticApi.deleteStatistic(it)
+                            currentStatistic = statistic
+                        }
+                    },
+                ) {
+                    Icon(painter = rememberVectorPainter(Icons.Rounded.Edit), "Edit")
+                }
+                IconButton(
+                    onClick = {
+                        scope.launch {
+                            statisticApi.deleteStatistic(statistic)
                             statistics = statisticApi.getAllStatistics()
                         }
                     },
@@ -61,6 +73,19 @@ fun StatisticScreen(
 
     LaunchedEffect(Unit) {
         statistics = statisticApi.getAllStatistics()
+    }
+
+    if (currentStatistic != null) {
+        StatisticUpdateDialog(
+            currentStatistic!!,
+            onConfirm = {
+                scope.launch {
+                    statisticApi.updateStatistic(it)
+                    statistics = statisticApi.getAllStatistics()
+                }
+                currentStatistic = null
+            }
+        )
     }
 
     Column {
