@@ -34,11 +34,12 @@ fun StatisticScreen(
     val statisticApi = remember { StatisticApi(client) }
     var statistics by remember { mutableStateOf(emptyList<Statistic>()) }
     val scope = rememberCoroutineScope()
-    val columns = listOf(
-        TableColumn<Statistic>("Name") { Text(it.name.text) },
-        TableColumn<Statistic>("Type") { Text(it.data.getType().name) },
-        TableColumn<Statistic>("Base Value") { DisplayStatisticBasedValue(it.data.baseValue()) },
-        TableColumn<Statistic>("Unit") { DisplayUnitOfMeasurement(it.data.unit(), false) },
+    val columns = listOf<TableColumn<Statistic>>(
+        TableColumn("Name") { Text(it.name.text) },
+        TableColumn("Type") { Text(it.data.getType().name) },
+        TableColumn("Cost") { DisplayStatisticCost(it.data.cost(), false) },
+        TableColumn("Base Value") { DisplayStatisticBasedValue(it.data.baseValue()) },
+        TableColumn("Unit") { DisplayUnitOfMeasurement(it.data.unit(), false) },
     )
 
     LaunchedEffect(Unit) {
