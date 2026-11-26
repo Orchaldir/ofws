@@ -72,6 +72,7 @@ fun EditStatisticCost(
     if (type == Fixed) {
         SelectInt(1, 10, cost) {
             cost = it
+            update()
         }
     }
 }
