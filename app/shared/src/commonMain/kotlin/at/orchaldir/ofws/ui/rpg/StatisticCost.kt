@@ -20,6 +20,7 @@ import at.orchaldir.ofws.model.rpg.statistic.StatisticCostType.*
 import at.orchaldir.ofws.model.rpg.statistic.StatisticData
 import at.orchaldir.ofws.model.rpg.statistic.StatisticDataType
 import at.orchaldir.ofws.model.rpg.statistic.UndefinedStatisticCost
+import at.orchaldir.ofws.utils.SelectInt
 import at.orchaldir.ofws.utils.SelectValue
 
 @Composable
@@ -51,11 +52,11 @@ fun EditStatisticCost(
             is FixedStatisticCost -> cost.cost
             else -> 1
         }
-        mutableFloatStateOf(value.toFloat())
+        mutableStateOf(value)
     }
     val update: () -> Unit = {
         val data = when (type) {
-            Fixed -> FixedStatisticCost(cost.toInt())
+            Fixed -> FixedStatisticCost(cost)
             GurpsSkill -> GurpsSkillCost
             Undefined -> UndefinedStatisticCost
         }
@@ -69,12 +70,8 @@ fun EditStatisticCost(
     }
 
     if (type == Fixed) {
-        Slider(
-            value = cost,
-            onValueChange = { cost = it },
-            steps = 10,
-            valueRange = 1f..10f
-        )
-        Text(text = cost.toString())
+        SelectInt(1, 10, cost) {
+            cost = it
+        }
     }
 }
