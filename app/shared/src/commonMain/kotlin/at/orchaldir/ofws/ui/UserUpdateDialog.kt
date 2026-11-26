@@ -15,6 +15,7 @@ import androidx.compose.ui.window.Dialog
 import at.orchaldir.ofws.model.user.User
 import at.orchaldir.ofws.model.user.UserRole
 import at.orchaldir.ofws.model.utils.name.Name
+import at.orchaldir.ofws.utils.SelectName
 import at.orchaldir.ofws.utils.SelectValue
 
 @Composable
@@ -22,12 +23,8 @@ fun UserUpdateDialog(
     user: User,
     onConfirm: (User) -> Unit,
 ) {
-    var name by remember { mutableStateOf(user.name.text) }
+    var name by remember { mutableStateOf(user.name) }
     var selectedRole by remember { mutableStateOf(user.role) }
-    val colors = TextFieldDefaults.colors(
-        focusedTextColor = Color.Blue,
-        focusedContainerColor = Color.White,
-    )
 
     Dialog(onDismissRequest = {}) {
         Card(
@@ -36,19 +33,16 @@ fun UserUpdateDialog(
         ) {
             Column(modifier = Modifier.padding(10.dp)) {
                 Text("Update ${user.name.text}", fontSize = 20.sp)
-                TextField(
-                    value = name,
-                    onValueChange = { name = it },
-                    label = { Text("Name") },
-                    colors = colors
-                )
+                SelectName(user.name) {
+                    name = it
+                }
                 SelectValue(UserRole.entries, user.role) { role ->
                     selectedRole = role
                 }
                 OutlinedButton(onClick = {
                     val newUser = User(
                         user.id,
-                        Name.init(name),
+                        name,
                         selectedRole,
                     )
                     onConfirm(newUser)

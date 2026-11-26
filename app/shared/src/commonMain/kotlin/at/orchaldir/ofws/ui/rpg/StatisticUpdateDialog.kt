@@ -14,18 +14,15 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import at.orchaldir.ofws.model.rpg.statistic.Statistic
 import at.orchaldir.ofws.model.utils.name.Name
+import at.orchaldir.ofws.utils.SelectName
 
 @Composable
 fun StatisticUpdateDialog(
     statistic: Statistic,
     onConfirm: (Statistic) -> Unit,
 ) {
-    var name by remember { mutableStateOf(statistic.name.text) }
+    var name by remember { mutableStateOf(statistic.name) }
     var data by remember { mutableStateOf(statistic.data) }
-    val colors = TextFieldDefaults.colors(
-        focusedTextColor = Color.Blue,
-        focusedContainerColor = Color.White,
-    )
 
     Dialog(onDismissRequest = {}) {
         Card(
@@ -34,18 +31,15 @@ fun StatisticUpdateDialog(
         ) {
             Column(modifier = Modifier.padding(10.dp)) {
                 Text("Update ${statistic.name.text}", fontSize = 20.sp)
-                TextField(
-                    value = name,
-                    onValueChange = { name = it },
-                    label = { Text("Name") },
-                    colors = colors
-                )
+                SelectName(statistic.name) {
+                    name = it
+                }
                 EditStatisticData(statistic.data) {
                     data = it
                 }
                 OutlinedButton(onClick = {
                     val newStatistic = statistic.copy(
-                        name = Name.init(name),
+                        name = name,
                         data = data,
                     )
                     onConfirm(newStatistic)
