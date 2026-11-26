@@ -11,6 +11,6 @@ fun App() {
     val httpClient = createHttpClient()
 
     MaterialTheme {
-        UserScreen(httpClient)
+        StatisticScreen(httpClient)
     }
 }
