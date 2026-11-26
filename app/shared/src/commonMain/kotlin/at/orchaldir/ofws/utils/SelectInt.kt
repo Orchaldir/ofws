@@ -1,8 +1,11 @@
 package at.orchaldir.ofws.utils
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion
 
 @Composable
 fun SelectInt(
@@ -14,8 +17,10 @@ fun SelectInt(
 ) {
     var current by remember { mutableFloatStateOf(start.toFloat()) }
 
-    Row {
-        Text(text = label)
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Text(text = "$label:")
         Slider(
             value = current,
             onValueChange = {
