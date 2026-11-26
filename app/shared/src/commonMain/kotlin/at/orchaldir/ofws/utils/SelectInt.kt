@@ -6,14 +6,16 @@ import androidx.compose.runtime.*
 
 @Composable
 fun SelectInt(
+    start: Int,
+    label: String,
     min: Int,
     max: Int,
-    start: Int,
     onChange: (Int) -> Unit,
 ) {
     var current by remember { mutableFloatStateOf(start.toFloat()) }
 
     Row {
+        Text(text = label)
         Slider(
             value = current,
             onValueChange = {

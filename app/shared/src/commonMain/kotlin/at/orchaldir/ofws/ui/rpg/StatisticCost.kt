@@ -70,7 +70,7 @@ fun EditStatisticCost(
     }
 
     if (type == Fixed) {
-        SelectInt(1, 10, cost) {
+        SelectInt(cost, "Cost per Level",1, 10) {
             cost = it
             update()
         }
