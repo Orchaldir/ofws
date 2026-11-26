@@ -21,6 +21,7 @@ fun StatisticUpdateDialog(
     onConfirm: (Statistic) -> Unit,
 ) {
     var name by remember { mutableStateOf(statistic.name.text) }
+    var data by remember { mutableStateOf(statistic.data) }
     val colors = TextFieldDefaults.colors(
         focusedTextColor = Color.Blue,
         focusedContainerColor = Color.White,
@@ -39,9 +40,13 @@ fun StatisticUpdateDialog(
                     label = { Text("Name") },
                     colors = colors
                 )
+                EditStatisticData(statistic.data) {
+                    data = it
+                }
                 OutlinedButton(onClick = {
                     val newStatistic = statistic.copy(
                         name = Name.init(name),
+                        data = data,
                     )
                     onConfirm(newStatistic)
                 }) {
