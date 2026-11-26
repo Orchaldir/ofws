@@ -15,6 +15,7 @@ import androidx.compose.ui.window.Dialog
 import at.orchaldir.ofws.model.user.User
 import at.orchaldir.ofws.model.user.UserRole
 import at.orchaldir.ofws.model.utils.name.Name
+import at.orchaldir.ofws.utils.SelectValue
 
 @Composable
 fun UserUpdateDialog(
@@ -22,7 +23,7 @@ fun UserUpdateDialog(
     onConfirm: (User) -> Unit,
 ) {
     var name by remember { mutableStateOf(user.name.text) }
-    var selectedRoleIndex by remember { mutableStateOf(user.role.ordinal) }
+    var selectedRole by remember { mutableStateOf(user.role) }
     val colors = TextFieldDefaults.colors(
         focusedTextColor = Color.Blue,
         focusedContainerColor = Color.White,
@@ -41,24 +42,14 @@ fun UserUpdateDialog(
                     label = { Text("Name") },
                     colors = colors
                 )
-                SingleChoiceSegmentedButtonRow {
-                    UserRole.entries.forEachIndexed { index, r ->
-                        SegmentedButton(
-                            shape = SegmentedButtonDefaults.itemShape(
-                                index = index,
-                                count = UserRole.entries.size
-                            ),
-                            onClick = { selectedRoleIndex = index },
-                            selected = index == selectedRoleIndex,
-                            label = { Text(r.name) }
-                        )
-                    }
+                SelectValue(UserRole.entries, user.role) { role ->
+                    selectedRole = role
                 }
                 OutlinedButton(onClick = {
                     val newUser = User(
                         user.id,
                         Name.init(name),
-                        UserRole.entries[selectedRoleIndex]
+                        selectedRole,
                     )
                     onConfirm(newUser)
                 }) {
