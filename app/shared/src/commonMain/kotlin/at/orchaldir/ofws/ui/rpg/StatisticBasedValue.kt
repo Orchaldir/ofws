@@ -112,8 +112,8 @@ fun EditStatisticBasedValue(
             StatisticBasedValueType.Lookup -> defaultValue
             StatisticBasedValueType.Division -> DivisionOfValues(dividend, divisor)
             StatisticBasedValueType.FixedNumber -> FixedNumber(fixedNumber)
-            StatisticBasedValueType.Product -> defaultValue
-            StatisticBasedValueType.Sum -> defaultValue
+            StatisticBasedValueType.Product -> ProductOfValues(values)
+            StatisticBasedValueType.Sum -> SumOfValues(values)
         }
 
         onChange(data)
