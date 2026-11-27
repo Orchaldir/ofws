@@ -23,7 +23,7 @@ fun <T : Enum<T>> SelectValue(
                     onValueChange(values[index])
                 },
                 selected = index == selectedIndex,
-                label = { Text(value.name) }
+                label = { Text(value.nameWithSpaces()) }
             )
         }
     }

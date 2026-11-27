@@ -1,8 +1,5 @@
 package at.orchaldir.ofws.utils
 
-import at.orchaldir.ofws.model.user.USER_TYPE
-import at.orchaldir.ofws.model.user.User
-import at.orchaldir.ofws.model.user.UserId
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -37,5 +34,10 @@ class SplitNameTest {
     @Test
     fun `Do not split an acronym`() {
         assertEquals(listOf("ABC"), TestEnum.ABC.splitName(),)
+    }
+
+    @Test
+    fun `Get name with spaces`() {
+        assertEquals("The Very Long Example", TestEnum.TheVeryLongExample.nameWithSpaces())
     }
 }

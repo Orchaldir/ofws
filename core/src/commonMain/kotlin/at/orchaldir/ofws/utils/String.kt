@@ -27,3 +27,5 @@ fun <T : Enum<T>> T.splitName(): List<String> {
 
     return parts
 }
+
+fun <T : Enum<T>> T.nameWithSpaces() = splitName().joinToString(" ")
