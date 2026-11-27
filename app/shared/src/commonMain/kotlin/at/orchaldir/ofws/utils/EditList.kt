@@ -1,11 +1,9 @@
 package at.orchaldir.ofws.utils
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
-import androidx.compose.ui.Modifier
 
 @Composable
 fun <T> EditList(
@@ -16,21 +14,27 @@ fun <T> EditList(
     addValue: (Int) -> T,
     editValue: @Composable (T, (T) -> Unit) -> Unit
 ) {
-    val current = remember { values.toMutableStateList() }
+    val current = remember { values.withIndex().toList().toMutableStateList() }
+    var next by remember { mutableStateOf(values.size) }
     val canDelete = current.size > minSize
 
-    current.withIndex().forEach { (index, value) ->
-        SpacedRow {
-            DeleteButton(canDelete) {
-                current.removeAt(index)
+    SpacedLazyColumn {
+        itemsIndexed(
+            current,
+            { _, entry -> entry.index }
+        ) { index, entry ->
+            SpacedRow {
+                DeleteButton(canDelete) {
+                    current.removeAt(index)
 
-                onChange(current)
-            }
+                    onChange(current.map { it.value })
+                }
 
-            editValue(value) {
-                current[index] = it
+                editValue(entry.value) {
+                    current[index] = IndexedValue(entry.index, it)
 
-                onChange(current)
+                    onChange(current.map { it.value })
+                }
             }
         }
     }
@@ -38,9 +42,9 @@ fun <T> EditList(
     if (current.size < maxSize) {
         OutlinedButton(onClick = {
             val newValue = addValue(current.size)
-            current += newValue
+            current += IndexedValue(next++, newValue)
 
-            onChange(current)
+            onChange(current.map { it.value })
         }) {
             Text("Add")
         }
