@@ -17,6 +17,9 @@ fun <T> EditList(
     val current = remember { values.withIndex().toList().toMutableStateList() }
     var next by remember { mutableStateOf(values.size) }
     val canDelete = current.size > minSize
+    val update: () -> Unit = {
+        onChange(current.map { it.value })
+    }
 
     SpacedLazyColumn {
         itemsIndexed(
@@ -27,13 +30,13 @@ fun <T> EditList(
                 DeleteButton(canDelete) {
                     current.removeAt(index)
 
-                    onChange(current.map { it.value })
+                    update()
                 }
 
                 editValue(entry.value) {
                     current[index] = IndexedValue(entry.index, it)
 
-                    onChange(current.map { it.value })
+                    update()
                 }
             }
         }
@@ -44,7 +47,7 @@ fun <T> EditList(
             val newValue = addValue(current.size)
             current += IndexedValue(next++, newValue)
 
-            onChange(current.map { it.value })
+            update()
         }) {
             Text("Add")
         }
