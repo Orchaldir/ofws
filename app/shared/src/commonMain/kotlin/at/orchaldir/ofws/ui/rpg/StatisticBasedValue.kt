@@ -154,6 +154,9 @@ fun EditStatisticBasedValue(
                         values = updatedList
                         update()
                     },
+                    {
+                        defaultValue
+                    },
                 ) { entry, updateEntry ->
                     EditStatisticBasedValue(entry) { updatedEntry ->
                         updateEntry(updatedEntry)

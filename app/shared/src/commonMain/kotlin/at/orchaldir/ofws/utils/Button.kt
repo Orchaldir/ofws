@@ -9,7 +9,11 @@ import androidx.compose.ui.graphics.vector.rememberVectorPainter
 
 @Composable
 fun DeleteButton(
+    enabled: Boolean = true,
     onClick: () -> Unit,
-) = IconButton(onClick = onClick,) {
+) = IconButton(
+    enabled = enabled,
+    onClick = onClick,
+) {
     Icon(painter = rememberVectorPainter(Icons.Rounded.Delete), "Delete")
 }
