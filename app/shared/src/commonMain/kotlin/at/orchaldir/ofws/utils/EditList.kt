@@ -16,23 +16,20 @@ fun <T> EditList(
     addValue: (Int) -> T,
     editValue: @Composable (T, (T) -> Unit) -> Unit
 ) {
-    var current by remember { mutableStateOf(values) }
+    val current = remember { values.toMutableStateList() }
     val canDelete = current.size > minSize
 
     current.withIndex().forEach { (index, value) ->
         SpacedRow {
             DeleteButton(canDelete) {
-                val mutable = current.toMutableStateList()
-                mutable.removeAt(index)
+                current.removeAt(index)
 
-                current = mutable
+                onChange(current)
             }
 
             editValue(value) {
-                val mutable = current.toMutableList()
-                mutable[index] = it
+                current[index] = it
 
-                current = mutable
                 onChange(current)
             }
         }
