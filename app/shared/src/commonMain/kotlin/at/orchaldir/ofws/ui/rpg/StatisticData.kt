@@ -43,7 +43,7 @@ fun EditStatisticData(
         type = it
         update()
     }
-    EditStatisticBasedValue(baseValue) {
+    EditStatisticBasedValue("Base Value", baseValue) {
         baseValue = it
         update()
     }

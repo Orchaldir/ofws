@@ -6,6 +6,7 @@ import androidx.compose.runtime.*
 import at.orchaldir.ofws.model.rpg.statistic.*
 import at.orchaldir.ofws.utils.SelectInt
 import at.orchaldir.ofws.utils.SelectValue
+import at.orchaldir.ofws.utils.ShowDetails
 import at.orchaldir.ofws.utils.doNothing
 import kotlinx.coroutines.selects.select
 
@@ -68,6 +69,7 @@ private fun DisplayValues(
 
 @Composable
 fun EditStatisticBasedValue(
+    label: String,
     value: StatisticBasedValue,
     onChange: (StatisticBasedValue) -> Unit,
 ) {
@@ -92,22 +94,24 @@ fun EditStatisticBasedValue(
         onChange(data)
     }
 
-    SelectValue(StatisticBasedValueType.entries, type) {
-        type = it
-        update()
-    }
-
-    when (type) {
-        StatisticBasedValueType.Division -> doNothing()
-        StatisticBasedValueType.FixedNumber -> {
-            SelectInt(fixedNumber, "Default", -100, 100) {
-                fixedNumber = it
-                update()
-            }
+    ShowDetails(label) {
+        SelectValue(StatisticBasedValueType.entries, type) {
+            type = it
+            update()
         }
 
-        StatisticBasedValueType.Lookup -> doNothing()
-        StatisticBasedValueType.Product -> doNothing()
-        StatisticBasedValueType.Sum -> doNothing()
+        when (type) {
+            StatisticBasedValueType.Division -> doNothing()
+            StatisticBasedValueType.FixedNumber -> {
+                SelectInt(fixedNumber, "Default", -100, 100) {
+                    fixedNumber = it
+                    update()
+                }
+            }
+
+            StatisticBasedValueType.Lookup -> doNothing()
+            StatisticBasedValueType.Product -> doNothing()
+            StatisticBasedValueType.Sum -> doNothing()
+        }
     }
 }
