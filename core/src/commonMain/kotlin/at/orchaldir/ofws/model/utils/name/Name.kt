@@ -1,6 +1,7 @@
 package at.orchaldir.ofws.model.utils.name
 
 import at.orchaldir.ofws.utils.Id
+import at.orchaldir.ofws.utils.titlecaseFirstChar
 import kotlinx.serialization.Serializable
 import kotlin.jvm.JvmInline
 
@@ -18,5 +19,3 @@ value class Name private constructor(val text: String) {
     }
 
 }
-
-fun String.titlecaseFirstChar() = replaceFirstChar(Char::titlecase)
