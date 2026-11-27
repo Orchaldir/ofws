@@ -20,10 +20,7 @@ fun ShowDetails(
     Box(
         modifier = Modifier.border(2.dp, Color.Black, RoundedCornerShape(16.dp))
     ) {
-        Column(
-            modifier = Modifier.padding(12.dp),
-            verticalArrangement = Arrangement.spacedBy(10.dp),
-        ) {
+        SpacedColumn(Modifier.padding(12.dp)) {
             Text(label)
             content()
         }

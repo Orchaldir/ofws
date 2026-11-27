@@ -15,6 +15,7 @@ import androidx.compose.ui.window.Dialog
 import at.orchaldir.ofws.model.rpg.statistic.Statistic
 import at.orchaldir.ofws.model.utils.name.Name
 import at.orchaldir.ofws.utils.SelectName
+import at.orchaldir.ofws.utils.SpacedColumn
 
 @Composable
 fun StatisticUpdateDialog(
@@ -29,7 +30,7 @@ fun StatisticUpdateDialog(
             modifier = Modifier.fillMaxWidth().padding(4.dp),
             shape = RoundedCornerShape(CornerSize(4.dp))
         ) {
-            Column(modifier = Modifier.padding(10.dp)) {
+            SpacedColumn(modifier = Modifier.padding(20.dp)) {
                 Text("Update ${statistic.name.text}", fontSize = 20.sp)
                 SelectName(statistic.name) {
                     name = it

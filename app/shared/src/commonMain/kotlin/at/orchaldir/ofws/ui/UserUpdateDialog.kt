@@ -17,6 +17,7 @@ import at.orchaldir.ofws.model.user.UserRole
 import at.orchaldir.ofws.model.utils.name.Name
 import at.orchaldir.ofws.utils.SelectName
 import at.orchaldir.ofws.utils.SelectValue
+import at.orchaldir.ofws.utils.SpacedColumn
 
 @Composable
 fun UserUpdateDialog(
@@ -31,7 +32,7 @@ fun UserUpdateDialog(
             modifier = Modifier.fillMaxWidth().padding(4.dp),
             shape = RoundedCornerShape(CornerSize(4.dp))
         ) {
-            Column(modifier = Modifier.padding(10.dp)) {
+            SpacedColumn(modifier = Modifier.padding(10.dp)) {
                 Text("Update ${user.name.text}", fontSize = 20.sp)
                 SelectName(user.name) {
                     name = it
