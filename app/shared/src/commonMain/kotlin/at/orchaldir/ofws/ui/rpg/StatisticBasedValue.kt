@@ -8,7 +8,6 @@ import at.orchaldir.ofws.utils.SelectInt
 import at.orchaldir.ofws.utils.SelectValue
 import at.orchaldir.ofws.utils.ShowDetails
 import at.orchaldir.ofws.utils.doNothing
-import kotlinx.coroutines.selects.select
 
 // display
 
@@ -69,10 +68,11 @@ private fun DisplayValues(
 
 @Composable
 fun EditStatisticBasedValue(
-    label: String,
     value: StatisticBasedValue,
+    label: String? = null,
     onChange: (StatisticBasedValue) -> Unit,
 ) {
+    val defaultValue = FixedNumber(1)
     var type by remember { mutableStateOf(value.getType()) }
     var fixedNumber by remember {
         mutableStateOf(
@@ -86,7 +86,7 @@ fun EditStatisticBasedValue(
         mutableStateOf(
             when (value) {
                 is DivisionOfValues -> value.dividend
-                else -> FixedNumber(1)
+                else -> defaultValue
             }
         )
     }
@@ -94,17 +94,26 @@ fun EditStatisticBasedValue(
         mutableStateOf(
             when (value) {
                 is DivisionOfValues -> value.divisor
-                else -> FixedNumber(1)
+                else -> defaultValue
+            }
+        )
+    }
+    var values by remember {
+        mutableStateOf(
+            when (value) {
+                is ProductOfValues -> value.values.toMutableStateList()
+                is SumOfValues -> value.values.toMutableStateList()
+                else -> listOf(defaultValue, defaultValue)
             }
         )
     }
     val update: () -> Unit = {
         val data = when (type) {
-            StatisticBasedValueType.Lookup -> FixedNumber(fixedNumber)
+            StatisticBasedValueType.Lookup -> defaultValue
             StatisticBasedValueType.Division -> DivisionOfValues(dividend, divisor)
             StatisticBasedValueType.FixedNumber -> FixedNumber(fixedNumber)
-            StatisticBasedValueType.Product -> FixedNumber(fixedNumber)
-            StatisticBasedValueType.Sum -> FixedNumber(fixedNumber)
+            StatisticBasedValueType.Product -> defaultValue
+            StatisticBasedValueType.Sum -> defaultValue
         }
 
         onChange(data)
@@ -118,11 +127,11 @@ fun EditStatisticBasedValue(
 
         when (type) {
             StatisticBasedValueType.Division -> {
-                EditStatisticBasedValue("Dividend", dividend) {
+                EditStatisticBasedValue(dividend, "Dividend") {
                     dividend = it
                     update()
                 }
-                EditStatisticBasedValue("Divisor", divisor) {
+                EditStatisticBasedValue(divisor, "Divisor") {
                     divisor = it
                     update()
                 }
@@ -135,8 +144,17 @@ fun EditStatisticBasedValue(
             }
 
             StatisticBasedValueType.Lookup -> doNothing()
-            StatisticBasedValueType.Product -> doNothing()
-            StatisticBasedValueType.Sum -> doNothing()
+            StatisticBasedValueType.Product, StatisticBasedValueType.Sum -> {
+                values.withIndex().forEach { (index,entry) ->
+                    EditStatisticBasedValue(entry) {
+                        val mutable = values.toMutableList()
+                        mutable[index] = entry
+
+                        values = mutable
+                        update()
+                    }
+                }
+            }
         }
     }
 }

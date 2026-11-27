@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun ShowDetails(
-    label: String,
+    label: String?,
     content: @Composable () -> Unit,
 ) {
     Box(
@@ -24,7 +24,10 @@ fun ShowDetails(
             .border(1.dp, Color.Black, RoundedCornerShape(16.dp))
     ) {
         SpacedColumn(Modifier.padding(12.dp)) {
-            Text(label)
+            if (label != null) {
+                Text(label)
+            }
+
             content()
         }
     }
