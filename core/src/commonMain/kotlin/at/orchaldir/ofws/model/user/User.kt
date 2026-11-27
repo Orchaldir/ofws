@@ -29,6 +29,7 @@ data class User(
 ) : Element<UserId> {
 
     override fun id() = id
+    override fun name() = name
 
     override fun canDelete(state: State) = DeleteResult(id)
 

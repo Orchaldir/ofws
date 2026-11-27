@@ -4,12 +4,37 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 
 @Composable
+fun <ID : Id, ELEMENT : Element<ID>> SelectValue(
+    values: List<ELEMENT>,
+    id: ID,
+    onValueChange: (ELEMENT) -> Unit,
+) = SelectValue(
+    values,
+    values.indexOfFirst { it.id() == id },
+    { it.name().text },
+    onValueChange,
+)
+
+@Composable
 fun <T : Enum<T>> SelectValue(
     values: List<T>,
     current: T,
     onValueChange: (T) -> Unit,
+) = SelectValue(
+    values,
+    current.ordinal,
+    { it.nameWithSpaces() },
+    onValueChange,
+)
+
+@Composable
+fun <T> SelectValue(
+    values: List<T>,
+    currentIndex: Int,
+    getName: (T) -> String,
+    onValueChange: (T) -> Unit,
 ) {
-    var selectedIndex by remember { mutableStateOf(current.ordinal) }
+    var selectedIndex by remember { mutableStateOf(currentIndex) }
 
     SingleChoiceSegmentedButtonRow {
         values.forEachIndexed { index, value ->
@@ -23,7 +48,7 @@ fun <T : Enum<T>> SelectValue(
                     onValueChange(values[index])
                 },
                 selected = index == selectedIndex,
-                label = { Text(value.nameWithSpaces()) }
+                label = { Text(getName(value)) }
             )
         }
     }

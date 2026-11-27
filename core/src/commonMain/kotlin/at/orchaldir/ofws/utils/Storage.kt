@@ -1,6 +1,7 @@
 package at.orchaldir.ofws.utils
 
 import at.orchaldir.ofws.model.State
+import at.orchaldir.ofws.model.utils.name.Name
 
 interface Id {
     fun type(): String
@@ -12,6 +13,7 @@ interface Id {
 
 interface Element<ID> {
     fun id(): ID
+    fun name(): Name
     fun canDelete(state: State): DeleteResult
 }
 
