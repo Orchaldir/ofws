@@ -20,7 +20,7 @@ fun <T> EditList(
     val canDelete = current.size > minSize
 
     current.withIndex().forEach { (index, value) ->
-        Row {
+        SpacedRow {
             DeleteButton(canDelete) {
                 val mutable = current.toMutableStateList()
                 mutable.removeAt(index)
