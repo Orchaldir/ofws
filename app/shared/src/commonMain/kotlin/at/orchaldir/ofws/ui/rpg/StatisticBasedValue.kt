@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import at.orchaldir.ofws.model.rpg.statistic.*
+import at.orchaldir.ofws.utils.EditList
 import at.orchaldir.ofws.utils.SelectInt
 import at.orchaldir.ofws.utils.SelectValue
 import at.orchaldir.ofws.utils.ShowDetails
@@ -145,13 +146,17 @@ fun EditStatisticBasedValue(
 
             StatisticBasedValueType.Lookup -> doNothing()
             StatisticBasedValueType.Product, StatisticBasedValueType.Sum -> {
-                values.withIndex().forEach { (index,entry) ->
-                    EditStatisticBasedValue(entry) {
-                        val mutable = values.toMutableList()
-                        mutable[index] = it
-
-                        values = mutable
+                EditList(
+                    values,
+                    2,
+                    10,
+                    { updatedList ->
+                        values = updatedList
                         update()
+                    },
+                ) { entry, updateEntry ->
+                    EditStatisticBasedValue(entry) { updatedEntry ->
+                        updateEntry(updatedEntry)
                     }
                 }
             }
