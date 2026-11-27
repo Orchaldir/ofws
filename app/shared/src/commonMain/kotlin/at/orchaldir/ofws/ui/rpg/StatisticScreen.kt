@@ -45,7 +45,7 @@ fun StatisticScreen(
         TableColumn("Name") { Text(it.name.text) },
         TableColumn("Type") { Text(it.data.getType().name) },
         TableColumn("Cost") { DisplayStatisticCost(it.data.cost(), false) },
-        TableColumn("Base Value") { DisplayStatisticBasedValue(it.data.baseValue()) },
+        TableColumn("Base Value") { DisplayStatisticBasedValue(statistics, it.data.baseValue()) },
         TableColumn("Unit") { DisplayUnitOfMeasurement(it.data.unit(), false) },
         TableColumn("Actions") { statistic ->
             Row {

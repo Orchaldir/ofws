@@ -15,24 +15,41 @@ import at.orchaldir.ofws.utils.doNothing
 
 @Composable
 fun DisplayStatisticBasedValue(
+    statistics: List<Statistic>,
     value: StatisticBasedValue,
 ) {
     Row {
-        InternalStatisticBasedValue(value, true)
+        InternalStatisticBasedValue(statistics, value, true)
     }
 }
 
 @Composable
 private fun InternalStatisticBasedValue(
+    statistics: List<Statistic>,
     value: StatisticBasedValue,
     isTopLevel: Boolean = true,
 ) {
     when (value) {
-        is DivisionOfValues -> DisplayValues(listOf(value.dividend, value.divisor), "/", isTopLevel)
+        is DivisionOfValues -> DisplayValues(
+            statistics,
+            listOf(value.dividend, value.divisor),
+            "/",
+            isTopLevel,
+        )
         is FixedNumber -> Text(value.default.toString())
-        is ProductOfValues -> DisplayValues(value.values, "*", isTopLevel)
-        is StatisticLookup -> TODO()
-        is SumOfValues -> DisplayValues(value.values, "+", isTopLevel)
+        is ProductOfValues -> DisplayValues(
+            statistics,
+            value.values,
+            "*",
+            isTopLevel,
+        )
+        is StatisticLookup -> Text(statistics.first { it.id == value.statistic }.name.text)
+        is SumOfValues -> DisplayValues(
+            statistics,
+            value.values,
+            "+",
+            isTopLevel,
+        )
     }
 }
 
@@ -52,6 +69,7 @@ private fun Brackets(
 
 @Composable
 private fun DisplayValues(
+    statistics: List<Statistic>,
     values: List<StatisticBasedValue>,
     symbol: String,
     isTopLevel: Boolean,
@@ -61,7 +79,7 @@ private fun DisplayValues(
             if (i > 0) {
                 Text(" $symbol ")
             }
-            InternalStatisticBasedValue(value, false)
+            InternalStatisticBasedValue(statistics, value, false)
         }
     }
 }
