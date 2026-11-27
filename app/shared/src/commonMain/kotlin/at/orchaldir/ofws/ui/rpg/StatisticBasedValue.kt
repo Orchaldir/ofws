@@ -101,8 +101,8 @@ fun EditStatisticBasedValue(
     var values by remember {
         mutableStateOf(
             when (value) {
-                is ProductOfValues -> value.values.toMutableStateList()
-                is SumOfValues -> value.values.toMutableStateList()
+                is ProductOfValues -> value.values
+                is SumOfValues -> value.values
                 else -> listOf(defaultValue, defaultValue)
             }
         )
@@ -148,7 +148,7 @@ fun EditStatisticBasedValue(
                 values.withIndex().forEach { (index,entry) ->
                     EditStatisticBasedValue(entry) {
                         val mutable = values.toMutableList()
-                        mutable[index] = entry
+                        mutable[index] = it
 
                         values = mutable
                         update()
