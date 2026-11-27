@@ -7,13 +7,14 @@ import androidx.compose.runtime.*
 fun <ID : Id, ELEMENT : Element<ID>> SelectValue(
     values: List<ELEMENT>,
     id: ID,
-    onValueChange: (ELEMENT) -> Unit,
+    onValueChange: (ID) -> Unit,
 ) = SelectValue(
     values,
     values.indexOfFirst { it.id() == id },
     { it.name().text },
-    onValueChange,
-)
+) {
+    onValueChange(it.id())
+}
 
 @Composable
 fun <T : Enum<T>> SelectValue(

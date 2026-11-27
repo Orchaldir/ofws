@@ -3,6 +3,7 @@ package at.orchaldir.ofws.ui.rpg
 import androidx.compose.foundation.layout.Row
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
+import at.orchaldir.ofws.model.STATISTIC_ID_0
 import at.orchaldir.ofws.model.rpg.statistic.*
 import at.orchaldir.ofws.utils.EditList
 import at.orchaldir.ofws.utils.SelectInt
@@ -69,6 +70,7 @@ private fun DisplayValues(
 
 @Composable
 fun EditStatisticBasedValue(
+    statistics: List<Statistic>,
     value: StatisticBasedValue,
     label: String? = null,
     onChange: (StatisticBasedValue) -> Unit,
@@ -108,9 +110,17 @@ fun EditStatisticBasedValue(
             }
         )
     }
+    var statisticId by remember {
+        mutableStateOf(
+            when (value) {
+                is StatisticLookup -> value.statistic
+                else -> statistics.firstOrNull()?.id ?: STATISTIC_ID_0
+            }
+        )
+    }
     val update: () -> Unit = {
         val data = when (type) {
-            StatisticBasedValueType.Lookup -> defaultValue
+            StatisticBasedValueType.Lookup -> StatisticLookup(statisticId)
             StatisticBasedValueType.Division -> DivisionOfValues(dividend, divisor)
             StatisticBasedValueType.FixedNumber -> FixedNumber(fixedNumber)
             StatisticBasedValueType.Product -> ProductOfValues(values)
@@ -128,11 +138,11 @@ fun EditStatisticBasedValue(
 
         when (type) {
             StatisticBasedValueType.Division -> {
-                EditStatisticBasedValue(dividend, "Dividend") {
+                EditStatisticBasedValue(statistics, dividend, "Dividend") {
                     dividend = it
                     update()
                 }
-                EditStatisticBasedValue(divisor, "Divisor") {
+                EditStatisticBasedValue(statistics, divisor, "Divisor") {
                     divisor = it
                     update()
                 }
@@ -144,7 +154,15 @@ fun EditStatisticBasedValue(
                 }
             }
 
-            StatisticBasedValueType.Lookup -> doNothing()
+            StatisticBasedValueType.Lookup -> {
+                SelectValue(
+                    statistics,
+                    statisticId,
+                ) {
+                    statisticId = it
+                    update()
+                }
+            }
             StatisticBasedValueType.Product, StatisticBasedValueType.Sum -> {
                 EditList(
                     values,
@@ -158,7 +176,7 @@ fun EditStatisticBasedValue(
                         defaultValue
                     },
                 ) { entry, updateEntry ->
-                    EditStatisticBasedValue(entry) { updatedEntry ->
+                    EditStatisticBasedValue(statistics, entry) { updatedEntry ->
                         updateEntry(updatedEntry)
                     }
                 }

@@ -20,6 +20,7 @@ import at.orchaldir.ofws.utils.SpacedColumn
 @Composable
 fun StatisticUpdateDialog(
     statistic: Statistic,
+    other: List<Statistic>,
     onConfirm: (Statistic) -> Unit,
 ) {
     var name by remember { mutableStateOf(statistic.name) }
@@ -35,7 +36,7 @@ fun StatisticUpdateDialog(
                 SelectName(statistic.name) {
                     name = it
                 }
-                EditStatisticData(statistic.data) {
+                EditStatisticData(other, statistic.data) {
                     data = it
                 }
                 OutlinedButton(onClick = {

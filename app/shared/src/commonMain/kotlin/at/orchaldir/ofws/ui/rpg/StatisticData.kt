@@ -4,6 +4,7 @@ import androidx.compose.runtime.*
 import at.orchaldir.ofws.model.rpg.statistic.Attribute
 import at.orchaldir.ofws.model.rpg.statistic.DerivedAttribute
 import at.orchaldir.ofws.model.rpg.statistic.Skill
+import at.orchaldir.ofws.model.rpg.statistic.Statistic
 import at.orchaldir.ofws.model.rpg.statistic.StatisticData
 import at.orchaldir.ofws.model.rpg.statistic.StatisticDataType
 import at.orchaldir.ofws.utils.SelectValue
@@ -14,6 +15,7 @@ import at.orchaldir.ofws.utils.SelectValue
 
 @Composable
 fun EditStatisticData(
+    statistics: List<Statistic>,
     data: StatisticData,
     onChange: (StatisticData) -> Unit,
 ) {
@@ -43,7 +45,7 @@ fun EditStatisticData(
         type = it
         update()
     }
-    EditStatisticBasedValue(baseValue, "Base Value") {
+    EditStatisticBasedValue(statistics, baseValue, "Base Value") {
         baseValue = it
         update()
     }
