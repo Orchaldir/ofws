@@ -26,6 +26,7 @@ import at.orchaldir.ofws.ui.UserCard
 import at.orchaldir.ofws.ui.UserUpdateDialog
 import at.orchaldir.ofws.ui.utils.DisplayUnitOfMeasurement
 import at.orchaldir.ofws.utils.DeleteButton
+import at.orchaldir.ofws.utils.EditButton
 import com.mamon.tablekmp.component.Table
 import com.mamon.tablekmp.model.TableColors
 import com.mamon.tablekmp.model.TableColumn
@@ -49,14 +50,10 @@ fun StatisticScreen(
         TableColumn("Unit") { DisplayUnitOfMeasurement(it.data.unit(), false) },
         TableColumn("Actions") { statistic ->
             Row {
-                IconButton(
-                    onClick = {
-                        scope.launch {
-                            currentStatistic = statistic
-                        }
-                    },
-                ) {
-                    Icon(painter = rememberVectorPainter(Icons.Rounded.Edit), "Edit")
+                EditButton {
+                    scope.launch {
+                        currentStatistic = statistic
+                    }
                 }
                 DeleteButton {
                     scope.launch {
