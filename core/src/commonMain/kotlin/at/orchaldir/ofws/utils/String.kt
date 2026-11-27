@@ -5,9 +5,12 @@ fun String.titlecaseFirstChar() = replaceFirstChar(Char::titlecase)
 fun <T : Enum<T>> T.splitName(): List<String> {
     val parts = mutableListOf<String>()
     var current = ""
+    var wasUpperCase = false
 
     name.forEach { char ->
-        if (char.isUpperCase()) {
+        val isUpperCase = char.isUpperCase()
+
+        if (isUpperCase && !wasUpperCase) {
             if (current.isNotEmpty()) {
                 parts.add(current)
                 current = ""
@@ -15,6 +18,7 @@ fun <T : Enum<T>> T.splitName(): List<String> {
         }
 
         current += char
+        wasUpperCase = isUpperCase
     }
 
     if (current.isNotEmpty()) {
