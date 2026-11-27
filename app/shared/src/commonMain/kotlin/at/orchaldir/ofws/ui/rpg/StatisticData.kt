@@ -47,7 +47,7 @@ fun EditStatisticData(
         baseValue = it
         update()
     }
-    EditStatisticCost(data.cost()) {
+    EditStatisticCost("Cost", data.cost()) {
         cost = it
         update()
     }

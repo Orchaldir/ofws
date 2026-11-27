@@ -22,6 +22,7 @@ import at.orchaldir.ofws.model.rpg.statistic.StatisticDataType
 import at.orchaldir.ofws.model.rpg.statistic.UndefinedStatisticCost
 import at.orchaldir.ofws.utils.SelectInt
 import at.orchaldir.ofws.utils.SelectValue
+import at.orchaldir.ofws.utils.ShowDetails
 
 // display
 
@@ -47,6 +48,7 @@ fun DisplayStatisticCost(
 
 @Composable
 fun EditStatisticCost(
+    label: String,
     cost: StatisticCost,
     onChange: (StatisticCost) -> Unit,
 ) {
@@ -68,15 +70,17 @@ fun EditStatisticCost(
         onChange(data)
     }
 
-    SelectValue(StatisticCostType.entries, type) {
-        type = it
-        update()
-    }
-
-    if (type == Fixed) {
-        SelectInt(cost, "Cost per Level",1, 10) {
-            cost = it
+    ShowDetails(label) {
+        SelectValue(StatisticCostType.entries, type) {
+            type = it
             update()
+        }
+
+        if (type == Fixed) {
+            SelectInt(cost, "Cost per Level", 1, 10) {
+                cost = it
+                update()
+            }
         }
     }
 }
