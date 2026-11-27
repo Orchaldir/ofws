@@ -5,9 +5,9 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 enum class UnitOfMeasurementType {
-    Unitless,
     Prefix,
     Suffix,
+    Unitless,
 }
 
 @Serializable
