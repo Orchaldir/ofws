@@ -82,10 +82,26 @@ fun EditStatisticBasedValue(
             }
         )
     }
+    var dividend by remember {
+        mutableStateOf(
+            when (value) {
+                is DivisionOfValues -> value.dividend
+                else -> FixedNumber(1)
+            }
+        )
+    }
+    var divisor by remember {
+        mutableStateOf(
+            when (value) {
+                is DivisionOfValues -> value.divisor
+                else -> FixedNumber(1)
+            }
+        )
+    }
     val update: () -> Unit = {
         val data = when (type) {
             StatisticBasedValueType.Lookup -> FixedNumber(fixedNumber)
-            StatisticBasedValueType.Division -> FixedNumber(fixedNumber)
+            StatisticBasedValueType.Division -> DivisionOfValues(dividend, divisor)
             StatisticBasedValueType.FixedNumber -> FixedNumber(fixedNumber)
             StatisticBasedValueType.Product -> FixedNumber(fixedNumber)
             StatisticBasedValueType.Sum -> FixedNumber(fixedNumber)
@@ -101,7 +117,16 @@ fun EditStatisticBasedValue(
         }
 
         when (type) {
-            StatisticBasedValueType.Division -> doNothing()
+            StatisticBasedValueType.Division -> {
+                EditStatisticBasedValue("Dividend", dividend) {
+                    dividend = it
+                    update()
+                }
+                EditStatisticBasedValue("Divisor", divisor) {
+                    divisor = it
+                    update()
+                }
+            }
             StatisticBasedValueType.FixedNumber -> {
                 SelectInt(fixedNumber, "Default", -100, 100) {
                     fixedNumber = it
