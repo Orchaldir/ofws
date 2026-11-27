@@ -23,6 +23,8 @@ import at.orchaldir.ofws.model.rpg.statistic.UndefinedStatisticCost
 import at.orchaldir.ofws.utils.SelectInt
 import at.orchaldir.ofws.utils.SelectValue
 
+// display
+
 @Composable
 fun DisplayStatisticCost(
     cost: StatisticCost,
@@ -40,6 +42,8 @@ fun DisplayStatisticCost(
 
     Text(text)
 }
+
+// edit
 
 @Composable
 fun EditStatisticCost(

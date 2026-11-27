@@ -4,9 +4,9 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 enum class StatisticBasedValueType {
-    Lookup,
     Division,
     FixedNumber,
+    Lookup,
     Product,
     Sum,
 }
