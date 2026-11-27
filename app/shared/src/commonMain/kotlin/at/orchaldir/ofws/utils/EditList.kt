@@ -1,5 +1,6 @@
 package at.orchaldir.ofws.utils
 
+import androidx.compose.foundation.layout.Row
 import androidx.compose.runtime.*
 
 @Composable
@@ -11,14 +12,24 @@ fun <T> EditList(
     editEntry: @Composable (T,(T) -> Unit) -> Unit
 ) {
     var current by remember { mutableStateOf(values) }
+    val canDelete = current.size > minSize
 
-    current.withIndex().forEach { (index,value) ->
-        editEntry(value) {
-            val mutable = current.toMutableList()
-            mutable[index] = it
+    current.withIndex().forEach { (index, value) ->
+        Row {
+            DeleteButton {
+                val mutable = current.toMutableStateList()
+                mutable.removeAt(index)
 
-            current = mutable
-            onChange(current)
+                current = mutable
+            }
+
+            editEntry(value) {
+                val mutable = current.toMutableList()
+                mutable[index] = it
+
+                current = mutable
+                onChange(current)
+            }
         }
     }
 }

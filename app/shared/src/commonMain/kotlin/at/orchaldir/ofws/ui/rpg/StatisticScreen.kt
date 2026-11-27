@@ -25,6 +25,7 @@ import at.orchaldir.ofws.network.rpg.StatisticApi
 import at.orchaldir.ofws.ui.UserCard
 import at.orchaldir.ofws.ui.UserUpdateDialog
 import at.orchaldir.ofws.ui.utils.DisplayUnitOfMeasurement
+import at.orchaldir.ofws.utils.DeleteButton
 import com.mamon.tablekmp.component.Table
 import com.mamon.tablekmp.model.TableColors
 import com.mamon.tablekmp.model.TableColumn
@@ -57,15 +58,11 @@ fun StatisticScreen(
                 ) {
                     Icon(painter = rememberVectorPainter(Icons.Rounded.Edit), "Edit")
                 }
-                IconButton(
-                    onClick = {
-                        scope.launch {
-                            statisticApi.deleteStatistic(statistic)
-                            statistics = statisticApi.getAllStatistics()
-                        }
-                    },
-                ) {
-                    Icon(painter = rememberVectorPainter(Icons.Rounded.Delete), "Delete")
+                DeleteButton {
+                    scope.launch {
+                        statisticApi.deleteStatistic(statistic)
+                        statistics = statisticApi.getAllStatistics()
+                    }
                 }
             }
         },
