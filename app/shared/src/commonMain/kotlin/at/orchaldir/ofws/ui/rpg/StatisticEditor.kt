@@ -31,7 +31,7 @@ fun StatisticEditor(
     var name by remember { mutableStateOf(Name.init(id)) }
     var data by remember { mutableStateOf<StatisticData>(Attribute()) }
 
-    LaunchedEffect(Unit) {
+    LaunchedEffect(id) {
         val statistics = statisticClient.getAllStatistics()
         val statistic = statistics.first { it.id == id }
 
