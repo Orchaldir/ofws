@@ -12,7 +12,7 @@ import at.orchaldir.ofws.model.rpg.statistic.Statistic
 import at.orchaldir.ofws.model.rpg.statistic.StatisticData
 import at.orchaldir.ofws.model.rpg.statistic.StatisticId
 import at.orchaldir.ofws.model.utils.name.Name
-import at.orchaldir.ofws.network.rpg.StatisticApi
+import at.orchaldir.ofws.network.StatisticClient
 import at.orchaldir.ofws.utils.SelectName
 import at.orchaldir.ofws.utils.SpacedColumn
 import io.ktor.client.HttpClient
@@ -23,7 +23,7 @@ fun StatisticEditor(
     client: HttpClient,
     id: StatisticId,
 ) {
-    val statisticApi = remember { StatisticApi(client) }
+    val statisticClient = remember { StatisticClient(client) }
     val scope = rememberCoroutineScope()
     var others by remember { mutableStateOf(emptyList<Statistic>()) }
     var statistic by remember { mutableStateOf(Statistic(id)) }
@@ -31,7 +31,7 @@ fun StatisticEditor(
     var data by remember { mutableStateOf<StatisticData>(Attribute()) }
 
     LaunchedEffect(Unit) {
-        val statistics = statisticApi.getAllStatistics()
+        val statistics = statisticClient.getAllStatistics()
 
         others = statistics.filter { it.id != id }
         statistic = statistics.first { it.id == id }
@@ -56,7 +56,7 @@ fun StatisticEditor(
                     name = name,
                     data = data,
                 )
-                statisticApi.updateStatistic(newStatistic)
+                statisticClient.updateStatistic(newStatistic)
             }
         }) {
             Text("Update")

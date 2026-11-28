@@ -13,7 +13,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import at.orchaldir.ofws.model.user.User
-import at.orchaldir.ofws.network.UserApi
+import at.orchaldir.ofws.network.UserClient
 import io.ktor.client.*
 import kotlinx.coroutines.launch
 
@@ -21,13 +21,13 @@ import kotlinx.coroutines.launch
 fun UserScreen(
     client: HttpClient,
 ) {
-    val userApi = remember { UserApi(client) }
+    val userClient = remember { UserClient(client) }
     var users by remember { mutableStateOf(emptyList<User>()) }
     val scope = rememberCoroutineScope()
     var currentUser by remember { mutableStateOf<User?>(null) }
 
     LaunchedEffect(Unit) {
-        users = userApi.getAllUsers()
+        users = userClient.getAllUsers()
     }
 
     if (currentUser != null) {
@@ -35,8 +35,8 @@ fun UserScreen(
             currentUser!!,
             onConfirm = {
                 scope.launch {
-                    userApi.updateUser(it)
-                    users = userApi.getAllUsers()
+                    userClient.updateUser(it)
+                    users = userClient.getAllUsers()
                 }
                 currentUser = null
             }
@@ -47,8 +47,8 @@ fun UserScreen(
         FloatingActionButton(
             onClick = {
                 scope.launch {
-                    val id = userApi.createUser()
-                    users = userApi.getAllUsers()
+                    val id = userClient.createUser()
+                    users = userClient.getAllUsers()
                     currentUser = users.firstOrNull { it.id == id }
                 }
             },
@@ -66,8 +66,8 @@ fun UserScreen(
                     user,
                     onDelete = {
                         scope.launch {
-                            userApi.deleteUser(it)
-                            users = userApi.getAllUsers()
+                            userClient.deleteUser(it)
+                            users = userClient.getAllUsers()
                         }
                     },
                     onUpdate = {

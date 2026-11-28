@@ -10,7 +10,7 @@ import io.ktor.client.request.setBody
 import io.ktor.http.ContentType
 import io.ktor.http.contentType
 
-class UserApi(private val httpClient: HttpClient) {
+class UserClient(private val httpClient: HttpClient) {
 
     suspend fun createUser(): UserId =
         httpClient.get(UserRoutes.Create()).body()

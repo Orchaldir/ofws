@@ -1,4 +1,4 @@
-package at.orchaldir.ofws.network.rpg
+package at.orchaldir.ofws.network
 
 import at.orchaldir.ofws.model.rpg.statistic.Statistic
 import at.orchaldir.ofws.model.rpg.statistic.StatisticId
@@ -10,7 +10,7 @@ import io.ktor.client.request.setBody
 import io.ktor.http.ContentType
 import io.ktor.http.contentType
 
-class StatisticApi(private val httpClient: HttpClient) {
+class StatisticClient(private val httpClient: HttpClient) {
 
     suspend fun createStatistic(): StatisticId =
         httpClient.get(StatisticRoutes.Create()).body()
