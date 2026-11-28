@@ -2,12 +2,15 @@ package at.orchaldir.ofws.routes
 
 import at.orchaldir.ofws.action.Action
 import at.orchaldir.ofws.model.State
+import at.orchaldir.ofws.model.user.User
 import at.orchaldir.ofws.model.user.UserId
 import at.orchaldir.ofws.utils.redux.Store
-import io.ktor.server.application.*
+import io.ktor.server.application.Application
+import io.ktor.server.request.*
 import io.ktor.server.resources.*
+import io.ktor.server.resources.post
 import io.ktor.server.response.*
-import io.ktor.server.routing.*
+import io.ktor.server.routing.routing
 
 fun Application.configureUserRouting(store: Store<Action, State>) {
     routing {
@@ -25,8 +28,8 @@ fun Application.configureUserRouting(store: Store<Action, State>) {
         get<UserRoutes.Delete> { delete ->
             handleDeleteElement(store, delete.id)
         }
-        get<UserRoutes.Update> { update ->
-            handleUpdateElement(store, update.user)
+        post<UserRoutes> {
+            handleUpdateElement(store, call.receive<User>())
         }
     }
 }

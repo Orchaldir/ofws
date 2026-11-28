@@ -1,5 +1,8 @@
 package at.orchaldir.ofws.model
 
+import at.orchaldir.ofws.model.rpg.statistic.STATISTIC_TYPE
+import at.orchaldir.ofws.model.rpg.statistic.Statistic
+import at.orchaldir.ofws.model.rpg.statistic.StatisticId
 import at.orchaldir.ofws.model.user.USER_TYPE
 import at.orchaldir.ofws.model.user.User
 import at.orchaldir.ofws.model.user.UserId
@@ -9,7 +12,8 @@ import at.orchaldir.ofws.utils.Storage
 
 val ELEMENTS =
     setOf(
-        USER_TYPE
+        STATISTIC_TYPE,
+        USER_TYPE,
     )
 
 data class State(
@@ -26,6 +30,7 @@ data class State(
         modName: String = "unknown",
     ) : this(storageList.associateBy { it.getType() }, modName)
 
+    fun getStatisticStorage() = getStorage<StatisticId, Statistic>(STATISTIC_TYPE)
     fun getUserStorage() = getStorage<UserId, User>(USER_TYPE)
 
     fun <ID : Id, ELEMENT : Element<ID>> getStorage(id: ID) = getStorage<ID, ELEMENT>(id.type())
@@ -73,6 +78,7 @@ data class State(
 }
 
 fun createStorage(type: String) = when (type) {
+    STATISTIC_TYPE -> Storage<StatisticId, Statistic>(type)
     USER_TYPE -> Storage<UserId, User>(type)
     else -> throw IllegalArgumentException("Unknown type $type")
 }

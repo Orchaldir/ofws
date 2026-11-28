@@ -6,8 +6,10 @@ import at.orchaldir.ofws.routes.UserRoutes
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.plugins.resources.*
+import io.ktor.client.request.*
+import io.ktor.http.*
 
-class UserApi(private val httpClient: HttpClient) {
+class UserClient(private val httpClient: HttpClient) {
 
     suspend fun createUser(): UserId =
         httpClient.get(UserRoutes.Create()).body()
@@ -22,6 +24,9 @@ class UserApi(private val httpClient: HttpClient) {
         httpClient.get(UserRoutes.GetAll()).body()
 
     suspend fun updateUser(user: User) {
-        httpClient.get(UserRoutes.Update(user))
+        httpClient.post(UserRoutes()) {
+            contentType(ContentType.Application.Json)
+            setBody(user)
+        }
     }
 }

@@ -1,0 +1,89 @@
+package at.orchaldir.ofws
+
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import androidx.navigation3.runtime.entryProvider
+import androidx.navigation3.ui.NavDisplay
+import at.orchaldir.ofws.model.rpg.statistic.Statistic
+import at.orchaldir.ofws.network.createHttpClient
+import at.orchaldir.ofws.ui.UserScreen
+import at.orchaldir.ofws.ui.rpg.StatisticEditor
+import at.orchaldir.ofws.ui.rpg.StatisticScreen
+import at.orchaldir.ofws.utils.SpacedColumn
+import kotlinx.serialization.Serializable
+
+@Serializable
+sealed interface NavRoute
+
+@Serializable
+sealed interface StatisticNavRoute : NavRoute {
+    @Serializable
+    data object All : StatisticNavRoute
+
+    @Serializable
+    data class Edit(val statistic: Statistic) : StatisticNavRoute
+}
+
+@Serializable
+private data object UserNavRoute : NavRoute
+
+@Composable
+fun BasicNavigation() {
+    val backStack = remember { mutableStateListOf<NavRoute>(UserNavRoute) }
+    val httpClient = createHttpClient()
+    val navRoutes = listOf(
+        Pair(StatisticNavRoute.All, "Statistics"),
+        Pair(UserNavRoute, "Users"),
+    )
+
+    PermanentNavigationDrawer(
+        drawerContent = {
+            PermanentDrawerSheet {
+                SpacedColumn {
+                    Spacer(Modifier.height(12.dp))
+                    navRoutes.forEach { (navRoute, text) ->
+                        NavigationDrawerItem(
+                            label = { Text(text) },
+                            selected = backStack == navRoute,
+                            onClick = {
+                                backStack.add(navRoute)
+                            },
+                            modifier = Modifier.padding(NavigationDrawerItemDefaults.ItemPadding),
+                        )
+                    }
+                }
+            }
+        },
+        content = {
+            NavDisplay(
+                backStack = backStack,
+                onBack = { backStack.removeLastOrNull() },
+                entryProvider = entryProvider {
+                    entry<StatisticNavRoute.All> {
+                        StatisticScreen(
+                            httpClient,
+                            { backStack.add(StatisticNavRoute.Edit(it)) }
+                        )
+                    }
+                    entry<StatisticNavRoute.Edit> { edit ->
+                        StatisticEditor(
+                            httpClient,
+                            edit.statistic,
+                            { backStack.add(StatisticNavRoute.All) },
+                        )
+                    }
+                    entry<UserNavRoute> {
+                        UserScreen(httpClient)
+                    }
+                },
+            )
+        }
+    )
+}
