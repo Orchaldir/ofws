@@ -25,7 +25,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun StatisticScreen(
     client: HttpClient,
-    onEdit: (StatisticId) -> Unit,
+    onEdit: (Statistic) -> Unit,
 ) {
     val statisticClient = remember { StatisticClient(client) }
     var statistics by remember { mutableStateOf(emptyList<Statistic>()) }
@@ -40,7 +40,7 @@ fun StatisticScreen(
             Row {
                 EditButton {
                     scope.launch {
-                        onEdit(statistic.id)
+                        onEdit(statistic)
                     }
                 }
                 DeleteButton {

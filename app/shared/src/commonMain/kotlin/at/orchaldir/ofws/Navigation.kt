@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation3.runtime.entryProvider
 import kotlinx.serialization.Serializable
 import androidx.navigation3.ui.NavDisplay
+import at.orchaldir.ofws.model.rpg.statistic.Statistic
 import at.orchaldir.ofws.model.rpg.statistic.StatisticId
 import at.orchaldir.ofws.network.createHttpClient
 import at.orchaldir.ofws.ui.UserScreen
@@ -31,7 +32,7 @@ sealed interface StatisticNavRoute: NavRoute {
     @Serializable
     data object All: StatisticNavRoute
     @Serializable
-    data class Edit(val id: StatisticId): StatisticNavRoute
+    data class Edit(val statistic: Statistic): StatisticNavRoute
 }
 
 @Serializable
@@ -78,7 +79,7 @@ fun BasicNavigation() {
                     entry<StatisticNavRoute.Edit> { edit ->
                         StatisticEditor(
                             httpClient,
-                            edit.id,
+                            edit.statistic,
                             {  backStack.add(StatisticNavRoute.All) },
                         )
                     }

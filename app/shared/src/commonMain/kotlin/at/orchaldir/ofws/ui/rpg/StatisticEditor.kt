@@ -22,22 +22,19 @@ import kotlinx.coroutines.launch
 @Composable
 fun StatisticEditor(
     client: HttpClient,
-    id: StatisticId,
+    statistic: Statistic,
     onBack: () -> Unit,
 ) {
     val statisticClient = StatisticClient(client)
     val scope = rememberCoroutineScope()
     var others by remember { mutableStateOf(emptyList<Statistic>()) }
-    var name by remember { mutableStateOf(Name.init(id)) }
-    var data by remember { mutableStateOf<StatisticData>(Attribute()) }
+    var name by remember { mutableStateOf(statistic.name) }
+    var data by remember { mutableStateOf(statistic.data) }
 
-    LaunchedEffect(id) {
+    LaunchedEffect(statistic.id) {
         val statistics = statisticClient.getAllStatistics()
-        val statistic = statistics.first { it.id == id }
 
-        others = statistics.filter { it.id != id }
-        name = statistic.name
-        data = statistic.data
+        others = statistics.filter { it.id != statistic.id }
     }
 
     SpacedColumn(modifier = Modifier.padding(20.dp)) {
@@ -55,7 +52,7 @@ fun StatisticEditor(
             OutlinedButton(onClick = {
                 scope.launch {
                     val newStatistic = Statistic(
-                        id,
+                        statistic.id,
                         name,
                         data,
                     )
