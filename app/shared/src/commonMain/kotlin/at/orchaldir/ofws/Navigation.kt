@@ -42,8 +42,8 @@ fun BasicNavigation() {
     val backStack = remember { mutableStateListOf<NavRoute>(UserNavRoute) }
     val httpClient = createHttpClient()
     val navRoutes = listOf(
-        StatisticNavRoute.All,
-        UserNavRoute
+        Pair(StatisticNavRoute.All, "Statistics"),
+        Pair(UserNavRoute, "Users"),
     )
 
     PermanentNavigationDrawer(
@@ -51,9 +51,9 @@ fun BasicNavigation() {
             PermanentDrawerSheet {
                 SpacedColumn {
                     Spacer(Modifier.height(12.dp))
-                    navRoutes.forEach { navRoute ->
+                    navRoutes.forEach { (navRoute, text) ->
                         NavigationDrawerItem(
-                            label = { Text(navRoute.toString())},
+                            label = { Text(text)},
                             selected = backStack == navRoute,
                             onClick = {
                                 backStack.add(navRoute)
