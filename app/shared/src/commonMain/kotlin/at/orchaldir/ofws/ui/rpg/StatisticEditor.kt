@@ -25,18 +25,17 @@ fun StatisticEditor(
     id: StatisticId,
     onBack: () -> Unit,
 ) {
-    val statisticClient = remember { StatisticClient(client) }
+    val statisticClient = StatisticClient(client)
     val scope = rememberCoroutineScope()
     var others by remember { mutableStateOf(emptyList<Statistic>()) }
-    var statistic by remember { mutableStateOf(Statistic(id)) }
     var name by remember { mutableStateOf(Name.init(id)) }
     var data by remember { mutableStateOf<StatisticData>(Attribute()) }
 
     LaunchedEffect(Unit) {
         val statistics = statisticClient.getAllStatistics()
+        val statistic = statistics.first { it.id == id }
 
         others = statistics.filter { it.id != id }
-        statistic = statistics.first { it.id == id }
         name = statistic.name
         data = statistic.data
     }
@@ -55,9 +54,10 @@ fun StatisticEditor(
         SpacedRow {
             OutlinedButton(onClick = {
                 scope.launch {
-                    val newStatistic = statistic.copy(
-                        name = name,
-                        data = data,
+                    val newStatistic = Statistic(
+                        id,
+                        name,
+                        data,
                     )
 
                     statisticClient.updateStatistic(newStatistic)
