@@ -1,20 +1,13 @@
 package at.orchaldir.ofws
 
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.DrawerValue
-import androidx.compose.material3.ModalDrawerSheet
-import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.NavigationDrawerItem
 import androidx.compose.material3.NavigationDrawerItemDefaults
 import androidx.compose.material3.PermanentDrawerSheet
 import androidx.compose.material3.PermanentNavigationDrawer
 import androidx.compose.material3.Text
-import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
@@ -23,8 +16,10 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation3.runtime.entryProvider
 import kotlinx.serialization.Serializable
 import androidx.navigation3.ui.NavDisplay
+import at.orchaldir.ofws.model.rpg.statistic.StatisticId
 import at.orchaldir.ofws.network.createHttpClient
 import at.orchaldir.ofws.ui.UserScreen
+import at.orchaldir.ofws.ui.rpg.StatisticEditor
 import at.orchaldir.ofws.ui.rpg.StatisticScreen
 import at.orchaldir.ofws.utils.SpacedColumn
 
@@ -32,7 +27,12 @@ import at.orchaldir.ofws.utils.SpacedColumn
 sealed interface NavRoute
 
 @Serializable
-private data object StatisticNavRoute: NavRoute
+sealed interface StatisticNavRoute: NavRoute {
+    @Serializable
+    data object All: StatisticNavRoute
+    @Serializable
+    data class Edit(val id: StatisticId): StatisticNavRoute
+}
 
 @Serializable
 private data object UserNavRoute: NavRoute
@@ -42,7 +42,7 @@ fun BasicNavigation() {
     val backStack = remember { mutableStateListOf<NavRoute>(UserNavRoute) }
     val httpClient = createHttpClient()
     val navRoutes = listOf(
-        StatisticNavRoute,
+        StatisticNavRoute.All,
         UserNavRoute
     )
 
@@ -69,8 +69,11 @@ fun BasicNavigation() {
                 backStack = backStack,
                 onBack = { backStack.removeLastOrNull() },
                 entryProvider = entryProvider {
-                    entry<StatisticNavRoute> {
+                    entry<StatisticNavRoute.All> {
                         StatisticScreen(httpClient)
+                    }
+                    entry<StatisticNavRoute.Edit> { edit ->
+                        StatisticEditor(httpClient, edit.id)
                     }
                     entry<UserNavRoute> {
                         UserScreen(httpClient)
