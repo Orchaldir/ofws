@@ -1,6 +1,7 @@
 package at.orchaldir.ofws.utils
 
-import androidx.compose.material3.*
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.*
 import at.orchaldir.ofws.model.utils.name.Name
 import at.orchaldir.ofws.model.utils.name.NotEmptyString

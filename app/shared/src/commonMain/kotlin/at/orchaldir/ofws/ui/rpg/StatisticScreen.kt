@@ -10,7 +10,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import at.orchaldir.ofws.model.rpg.statistic.Statistic
-import at.orchaldir.ofws.model.rpg.statistic.StatisticId
 import at.orchaldir.ofws.network.StatisticClient
 import at.orchaldir.ofws.ui.utils.DisplayUnitOfMeasurement
 import at.orchaldir.ofws.utils.DeleteButton

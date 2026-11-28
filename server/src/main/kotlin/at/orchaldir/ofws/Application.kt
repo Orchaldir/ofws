@@ -2,17 +2,7 @@ package at.orchaldir.ofws
 
 import at.orchaldir.ofws.action.REDUCER
 import at.orchaldir.ofws.model.State
-import at.orchaldir.ofws.model.rpg.statistic.Attribute
-import at.orchaldir.ofws.model.rpg.statistic.DerivedAttribute
-import at.orchaldir.ofws.model.rpg.statistic.DivisionOfValues
-import at.orchaldir.ofws.model.rpg.statistic.FixedNumber
-import at.orchaldir.ofws.model.rpg.statistic.FixedStatisticCost
-import at.orchaldir.ofws.model.rpg.statistic.GurpsSkillCost
-import at.orchaldir.ofws.model.rpg.statistic.ProductOfValues
-import at.orchaldir.ofws.model.rpg.statistic.Skill
-import at.orchaldir.ofws.model.rpg.statistic.Statistic
-import at.orchaldir.ofws.model.rpg.statistic.StatisticId
-import at.orchaldir.ofws.model.rpg.statistic.SumOfValues
+import at.orchaldir.ofws.model.rpg.statistic.*
 import at.orchaldir.ofws.model.user.User
 import at.orchaldir.ofws.model.user.UserId
 import at.orchaldir.ofws.model.user.UserRole
@@ -32,7 +22,6 @@ import io.ktor.server.netty.*
 import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.plugins.cors.routing.*
 import io.ktor.server.resources.*
-import io.ktor.util.Attributes
 import kotlinx.serialization.json.Json
 
 fun main() {
@@ -47,13 +36,25 @@ fun Application.module() {
     val admin = User(UserId(origin, 0), Name.init("Admin"), UserRole.Admin)
     val statistics = listOf(
         Statistic(StatisticId(origin, 0)),
-        Statistic(StatisticId(origin, 1), data = DerivedAttribute(DivisionOfValues(FixedNumber(10), FixedNumber(3)),
-            unit = PrefixedUnit(NotEmptyString.init("dfsd")))),
-        Statistic(StatisticId(origin, 2), data = Skill(SumOfValues(listOf(FixedNumber(10), FixedNumber(3))),
-            FixedStatisticCost(3)
-        )),
-        Statistic(StatisticId(origin, 3), data = Skill(ProductOfValues(listOf(FixedNumber(10), FixedNumber(3)),
-            ), GurpsSkillCost)),
+        Statistic(
+            StatisticId(origin, 1), data = DerivedAttribute(
+                DivisionOfValues(FixedNumber(10), FixedNumber(3)),
+                unit = PrefixedUnit(NotEmptyString.init("dfsd"))
+            )
+        ),
+        Statistic(
+            StatisticId(origin, 2), data = Skill(
+                SumOfValues(listOf(FixedNumber(10), FixedNumber(3))),
+                FixedStatisticCost(3)
+            )
+        ),
+        Statistic(
+            StatisticId(origin, 3), data = Skill(
+                ProductOfValues(
+                    listOf(FixedNumber(10), FixedNumber(3)),
+                ), GurpsSkillCost
+            )
+        ),
     )
     val storages = listOf(
         Storage(admin),

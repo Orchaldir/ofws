@@ -9,7 +9,6 @@ import at.orchaldir.ofws.utils.EditList
 import at.orchaldir.ofws.utils.SelectInt
 import at.orchaldir.ofws.utils.SelectValue
 import at.orchaldir.ofws.utils.ShowDetails
-import at.orchaldir.ofws.utils.doNothing
 
 // display
 
@@ -36,6 +35,7 @@ private fun InternalStatisticBasedValue(
             "/",
             isTopLevel,
         )
+
         is FixedNumber -> Text(value.default.toString())
         is ProductOfValues -> DisplayValues(
             statistics,
@@ -43,6 +43,7 @@ private fun InternalStatisticBasedValue(
             "*",
             isTopLevel,
         )
+
         is StatisticLookup -> Text(statistics.first { it.id == value.statistic }.name.text)
         is SumOfValues -> DisplayValues(
             statistics,
@@ -165,6 +166,7 @@ fun EditStatisticBasedValue(
                     update()
                 }
             }
+
             StatisticBasedValueType.FixedNumber -> {
                 SelectInt(fixedNumber, "Default", -100, 100) {
                     fixedNumber = it
@@ -181,6 +183,7 @@ fun EditStatisticBasedValue(
                     update()
                 }
             }
+
             StatisticBasedValueType.Product, StatisticBasedValueType.Sum -> {
                 EditList(
                     values,

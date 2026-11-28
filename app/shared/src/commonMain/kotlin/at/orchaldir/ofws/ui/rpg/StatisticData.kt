@@ -1,17 +1,10 @@
 package at.orchaldir.ofws.ui.rpg
 
 import androidx.compose.runtime.*
-import at.orchaldir.ofws.model.rpg.statistic.Attribute
-import at.orchaldir.ofws.model.rpg.statistic.DerivedAttribute
-import at.orchaldir.ofws.model.rpg.statistic.DivisionOfValues
-import at.orchaldir.ofws.model.rpg.statistic.Skill
-import at.orchaldir.ofws.model.rpg.statistic.Statistic
-import at.orchaldir.ofws.model.rpg.statistic.StatisticData
-import at.orchaldir.ofws.model.rpg.statistic.StatisticDataType
+import at.orchaldir.ofws.model.rpg.statistic.*
 import at.orchaldir.ofws.model.utils.Unitless
 import at.orchaldir.ofws.ui.utils.EditUnitOfMeasurement
 import at.orchaldir.ofws.utils.SelectValue
-import io.ktor.openapi.ReferenceOr.Companion.value
 
 // display
 
@@ -40,11 +33,13 @@ fun EditStatisticData(
                 baseValue,
                 cost,
             )
+
             StatisticDataType.DerivedAttribute -> DerivedAttribute(
                 baseValue,
                 cost,
                 unit,
             )
+
             StatisticDataType.Skill -> Skill(
                 baseValue,
                 cost,

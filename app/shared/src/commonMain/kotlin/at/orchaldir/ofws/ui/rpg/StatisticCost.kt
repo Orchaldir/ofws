@@ -1,25 +1,9 @@
 package at.orchaldir.ofws.ui.rpg
 
-import androidx.compose.material3.Slider
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableFloatStateOf
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import at.orchaldir.ofws.model.rpg.statistic.Attribute
-import at.orchaldir.ofws.model.rpg.statistic.DerivedAttribute
-import at.orchaldir.ofws.model.rpg.statistic.FixedStatisticCost
-import at.orchaldir.ofws.model.rpg.statistic.GurpsSkillCost
-import at.orchaldir.ofws.model.rpg.statistic.Skill
-import at.orchaldir.ofws.model.rpg.statistic.StatisticCost
-import at.orchaldir.ofws.model.rpg.statistic.StatisticCostType
+import androidx.compose.runtime.*
+import at.orchaldir.ofws.model.rpg.statistic.*
 import at.orchaldir.ofws.model.rpg.statistic.StatisticCostType.*
-import at.orchaldir.ofws.model.rpg.statistic.StatisticData
-import at.orchaldir.ofws.model.rpg.statistic.StatisticDataType
-import at.orchaldir.ofws.model.rpg.statistic.UndefinedStatisticCost
 import at.orchaldir.ofws.utils.SelectInt
 import at.orchaldir.ofws.utils.SelectValue
 import at.orchaldir.ofws.utils.ShowDetails

@@ -1,20 +1,19 @@
 package at.orchaldir.ofws.ui
 
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.*
+import androidx.compose.material3.Card
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import at.orchaldir.ofws.model.user.User
 import at.orchaldir.ofws.model.user.UserRole
-import at.orchaldir.ofws.model.utils.name.Name
 import at.orchaldir.ofws.utils.SelectName
 import at.orchaldir.ofws.utils.SelectValue
 import at.orchaldir.ofws.utils.SpacedColumn

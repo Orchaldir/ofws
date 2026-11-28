@@ -1,7 +1,6 @@
 package at.orchaldir.ofws.routes.rpg
 
 import at.orchaldir.ofws.model.rpg.statistic.STATISTIC_TYPE
-import at.orchaldir.ofws.model.rpg.statistic.Statistic
 import at.orchaldir.ofws.model.rpg.statistic.StatisticId
 import io.ktor.resources.*
 

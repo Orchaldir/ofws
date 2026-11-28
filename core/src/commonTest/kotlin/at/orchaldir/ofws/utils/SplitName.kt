@@ -33,7 +33,7 @@ class SplitNameTest {
 
     @Test
     fun `Do not split an acronym`() {
-        assertEquals(listOf("ABC"), TestEnum.ABC.splitName(),)
+        assertEquals(listOf("ABC"), TestEnum.ABC.splitName())
     }
 
     @Test

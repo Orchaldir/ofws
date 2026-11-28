@@ -29,7 +29,7 @@ fun SpacedLazyColumn(
     modifier: Modifier = Modifier,
     spacedBy: Dp = 10.dp,
     content: LazyListScope.() -> Unit,
-) = LazyColumn (
+) = LazyColumn(
     modifier = modifier.fillMaxWidth(),
     horizontalAlignment = Alignment.CenterHorizontally,
     verticalArrangement = Arrangement.spacedBy(spacedBy),

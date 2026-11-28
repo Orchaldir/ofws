@@ -5,12 +5,12 @@ import at.orchaldir.ofws.model.State
 import at.orchaldir.ofws.model.user.User
 import at.orchaldir.ofws.model.user.UserId
 import at.orchaldir.ofws.utils.redux.Store
-import io.ktor.server.request.receive
-import io.ktor.server.resources.get
-import io.ktor.server.resources.post
-import io.ktor.server.response.respond
-import io.ktor.server.routing.routing
 import io.ktor.server.application.Application
+import io.ktor.server.request.*
+import io.ktor.server.resources.*
+import io.ktor.server.resources.post
+import io.ktor.server.response.*
+import io.ktor.server.routing.routing
 
 fun Application.configureUserRouting(store: Store<Action, State>) {
     routing {

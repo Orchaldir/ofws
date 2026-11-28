@@ -12,7 +12,7 @@ fun <T> EditList(
     maxSize: Int,
     onChange: (List<T>) -> Unit,
     addValue: (Int) -> T,
-    editValue: @Composable (T, (T) -> Unit) -> Unit
+    editValue: @Composable (T, (T) -> Unit) -> Unit,
 ) {
     val current = remember { values.withIndex().toList().toMutableStateList() }
     var next by remember { mutableStateOf(values.size) }

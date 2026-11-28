@@ -7,16 +7,12 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import at.orchaldir.ofws.model.rpg.statistic.Attribute
 import at.orchaldir.ofws.model.rpg.statistic.Statistic
-import at.orchaldir.ofws.model.rpg.statistic.StatisticData
-import at.orchaldir.ofws.model.rpg.statistic.StatisticId
-import at.orchaldir.ofws.model.utils.name.Name
 import at.orchaldir.ofws.network.StatisticClient
 import at.orchaldir.ofws.utils.SelectName
 import at.orchaldir.ofws.utils.SpacedColumn
 import at.orchaldir.ofws.utils.SpacedRow
-import io.ktor.client.HttpClient
+import io.ktor.client.*
 import kotlinx.coroutines.launch
 
 @Composable

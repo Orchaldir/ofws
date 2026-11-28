@@ -1,7 +1,6 @@
 package at.orchaldir.ofws.routes
 
 import at.orchaldir.ofws.model.user.USER_TYPE
-import at.orchaldir.ofws.model.user.User
 import at.orchaldir.ofws.model.user.UserId
 import io.ktor.resources.*
 

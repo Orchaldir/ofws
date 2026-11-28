@@ -6,9 +6,8 @@ import at.orchaldir.ofws.routes.rpg.StatisticRoutes
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.plugins.resources.*
-import io.ktor.client.request.setBody
-import io.ktor.http.ContentType
-import io.ktor.http.contentType
+import io.ktor.client.request.*
+import io.ktor.http.*
 
 class StatisticClient(private val httpClient: HttpClient) {
 

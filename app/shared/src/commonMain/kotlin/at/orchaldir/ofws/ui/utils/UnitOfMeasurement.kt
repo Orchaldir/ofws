@@ -1,26 +1,9 @@
 package at.orchaldir.ofws.ui.utils
 
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import at.orchaldir.ofws.model.rpg.statistic.FixedStatisticCost
-import at.orchaldir.ofws.model.rpg.statistic.GurpsSkillCost
-import at.orchaldir.ofws.model.rpg.statistic.StatisticCost
-import at.orchaldir.ofws.model.rpg.statistic.StatisticCostType
-import at.orchaldir.ofws.model.rpg.statistic.StatisticCostType.Fixed
-import at.orchaldir.ofws.model.rpg.statistic.StatisticCostType.GurpsSkill
-import at.orchaldir.ofws.model.rpg.statistic.StatisticCostType.Undefined
-import at.orchaldir.ofws.model.rpg.statistic.UndefinedStatisticCost
-import at.orchaldir.ofws.model.utils.PrefixedUnit
-import at.orchaldir.ofws.model.utils.SuffixedUnit
-import at.orchaldir.ofws.model.utils.UnitOfMeasurement
-import at.orchaldir.ofws.model.utils.UnitOfMeasurementType
-import at.orchaldir.ofws.model.utils.Unitless
+import androidx.compose.runtime.*
+import at.orchaldir.ofws.model.utils.*
 import at.orchaldir.ofws.model.utils.name.NotEmptyString
-import at.orchaldir.ofws.utils.SelectInt
 import at.orchaldir.ofws.utils.SelectNotEmptyString
 import at.orchaldir.ofws.utils.SelectValue
 import at.orchaldir.ofws.utils.ShowDetails
@@ -87,6 +70,7 @@ fun EditUnitOfMeasurement(
                 text = it
                 update()
             }
+
             UnitOfMeasurementType.Unitless -> doNothing()
         }
     }

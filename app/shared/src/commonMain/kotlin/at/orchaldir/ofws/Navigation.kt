@@ -3,40 +3,36 @@ package at.orchaldir.ofws
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.NavigationDrawerItem
-import androidx.compose.material3.NavigationDrawerItemDefaults
-import androidx.compose.material3.PermanentDrawerSheet
-import androidx.compose.material3.PermanentNavigationDrawer
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation3.runtime.entryProvider
-import kotlinx.serialization.Serializable
 import androidx.navigation3.ui.NavDisplay
 import at.orchaldir.ofws.model.rpg.statistic.Statistic
-import at.orchaldir.ofws.model.rpg.statistic.StatisticId
 import at.orchaldir.ofws.network.createHttpClient
 import at.orchaldir.ofws.ui.UserScreen
 import at.orchaldir.ofws.ui.rpg.StatisticEditor
 import at.orchaldir.ofws.ui.rpg.StatisticScreen
 import at.orchaldir.ofws.utils.SpacedColumn
+import kotlinx.serialization.Serializable
 
 @Serializable
 sealed interface NavRoute
 
 @Serializable
-sealed interface StatisticNavRoute: NavRoute {
+sealed interface StatisticNavRoute : NavRoute {
     @Serializable
-    data object All: StatisticNavRoute
+    data object All : StatisticNavRoute
+
     @Serializable
-    data class Edit(val statistic: Statistic): StatisticNavRoute
+    data class Edit(val statistic: Statistic) : StatisticNavRoute
 }
 
 @Serializable
-private data object UserNavRoute: NavRoute
+private data object UserNavRoute : NavRoute
 
 @Composable
 fun BasicNavigation() {
@@ -54,7 +50,7 @@ fun BasicNavigation() {
                     Spacer(Modifier.height(12.dp))
                     navRoutes.forEach { (navRoute, text) ->
                         NavigationDrawerItem(
-                            label = { Text(text)},
+                            label = { Text(text) },
                             selected = backStack == navRoute,
                             onClick = {
                                 backStack.add(navRoute)
@@ -80,7 +76,7 @@ fun BasicNavigation() {
                         StatisticEditor(
                             httpClient,
                             edit.statistic,
-                            {  backStack.add(StatisticNavRoute.All) },
+                            { backStack.add(StatisticNavRoute.All) },
                         )
                     }
                     entry<UserNavRoute> {
