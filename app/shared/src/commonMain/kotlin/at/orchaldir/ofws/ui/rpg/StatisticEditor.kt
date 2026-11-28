@@ -15,6 +15,7 @@ import at.orchaldir.ofws.model.utils.name.Name
 import at.orchaldir.ofws.network.StatisticClient
 import at.orchaldir.ofws.utils.SelectName
 import at.orchaldir.ofws.utils.SpacedColumn
+import at.orchaldir.ofws.utils.SpacedRow
 import io.ktor.client.HttpClient
 import kotlinx.coroutines.launch
 
@@ -51,19 +52,24 @@ fun StatisticEditor(
             data = it
         }
 
-        OutlinedButton(onClick = {
-            scope.launch {
-                val newStatistic = statistic.copy(
-                    name = name,
-                    data = data,
-                )
+        SpacedRow {
+            OutlinedButton(onClick = {
+                scope.launch {
+                    val newStatistic = statistic.copy(
+                        name = name,
+                        data = data,
+                    )
 
-                statisticClient.updateStatistic(newStatistic)
+                    statisticClient.updateStatistic(newStatistic)
 
-                onBack()
+                    onBack()
+                }
+            }) {
+                Text("Update")
             }
-        }) {
-            Text("Update")
+            OutlinedButton(onClick = onBack) {
+                Text("Cancel")
+            }
         }
     }
 }
