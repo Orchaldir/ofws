@@ -38,7 +38,7 @@ fun SelectInt(
                 current = it
                 onChange(current.toInt())
             },
-            steps = (max - min),
+            steps = (max - min - 1),
             valueRange = min.toFloat()..max.toFloat()
         )
     }
