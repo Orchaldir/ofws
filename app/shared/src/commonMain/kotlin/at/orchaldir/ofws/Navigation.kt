@@ -26,6 +26,7 @@ import androidx.navigation3.ui.NavDisplay
 import at.orchaldir.ofws.network.createHttpClient
 import at.orchaldir.ofws.ui.UserScreen
 import at.orchaldir.ofws.ui.rpg.StatisticScreen
+import at.orchaldir.ofws.utils.SpacedColumn
 
 @Serializable
 sealed interface NavRoute
@@ -48,7 +49,7 @@ fun BasicNavigation() {
     PermanentNavigationDrawer(
         drawerContent = {
             PermanentDrawerSheet {
-                Column(Modifier.verticalScroll(rememberScrollState())) {
+                SpacedColumn {
                     Spacer(Modifier.height(12.dp))
                     navRoutes.forEach { navRoute ->
                         NavigationDrawerItem(
