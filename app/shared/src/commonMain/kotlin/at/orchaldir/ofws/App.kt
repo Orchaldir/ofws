@@ -8,9 +8,7 @@ import at.orchaldir.ofws.ui.rpg.StatisticScreen
 
 @Composable
 fun App() {
-    val httpClient = createHttpClient()
-
     MaterialTheme {
-        StatisticScreen(httpClient)
+        BasicNavigation()
     }
 }

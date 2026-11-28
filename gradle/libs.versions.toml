@@ -10,6 +10,7 @@ kotlin-logging = "3.0.5"
 logback = "1.6.7"
 material = "1.7.3"
 material3 = "1.12.0-alpha03"
+navigation3 = "1.1.2"
 kotlinx-serialization-json = "1.11.0"
 table = "1.0.1"
 
@@ -26,6 +27,7 @@ compose-icon3 = { module = "org.jetbrains.compose.material:material-icons-extend
 compose-ui = { module = "org.jetbrains.compose.ui:ui", version.ref = "composeMultiplatform" }
 compose-components-resources = { module = "org.jetbrains.compose.components:components-resources", version.ref = "composeMultiplatform" }
 compose-uiToolingPreview = { module = "org.jetbrains.compose.ui:ui-tooling-preview", version.ref = "composeMultiplatform" }
+compose-navigation3 = { module = "org.jetbrains.androidx.navigation3:navigation3-ui", version.ref = "navigation3" }
 kotlinx-coroutinesSwing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "kotlinx-coroutines" }
 kotlin-logging = { module = "io.github.microutils:kotlin-logging-jvm", version.ref = "kotlin-logging" }
 logback = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
