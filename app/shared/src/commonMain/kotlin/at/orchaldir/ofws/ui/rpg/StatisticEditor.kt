@@ -22,6 +22,7 @@ import kotlinx.coroutines.launch
 fun StatisticEditor(
     client: HttpClient,
     id: StatisticId,
+    onBack: () -> Unit,
 ) {
     val statisticClient = remember { StatisticClient(client) }
     val scope = rememberCoroutineScope()
@@ -56,7 +57,10 @@ fun StatisticEditor(
                     name = name,
                     data = data,
                 )
+
                 statisticClient.updateStatistic(newStatistic)
+
+                onBack()
             }
         }) {
             Text("Update")

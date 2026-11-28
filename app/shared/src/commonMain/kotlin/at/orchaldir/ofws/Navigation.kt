@@ -70,10 +70,17 @@ fun BasicNavigation() {
                 onBack = { backStack.removeLastOrNull() },
                 entryProvider = entryProvider {
                     entry<StatisticNavRoute.All> {
-                        StatisticScreen(httpClient)
+                        StatisticScreen(
+                            httpClient,
+                            { backStack.add(StatisticNavRoute.Edit(it)) }
+                        )
                     }
                     entry<StatisticNavRoute.Edit> { edit ->
-                        StatisticEditor(httpClient, edit.id)
+                        StatisticEditor(
+                            httpClient,
+                            edit.id,
+                            {  backStack.add(StatisticNavRoute.All) },
+                        )
                     }
                     entry<UserNavRoute> {
                         UserScreen(httpClient)

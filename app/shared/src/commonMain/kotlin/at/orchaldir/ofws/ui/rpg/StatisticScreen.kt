@@ -10,6 +10,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import at.orchaldir.ofws.model.rpg.statistic.Statistic
+import at.orchaldir.ofws.model.rpg.statistic.StatisticId
 import at.orchaldir.ofws.network.StatisticClient
 import at.orchaldir.ofws.ui.utils.DisplayUnitOfMeasurement
 import at.orchaldir.ofws.utils.DeleteButton
@@ -24,10 +25,10 @@ import kotlinx.coroutines.launch
 @Composable
 fun StatisticScreen(
     client: HttpClient,
+    onEdit: (StatisticId) -> Unit,
 ) {
     val statisticClient = remember { StatisticClient(client) }
     var statistics by remember { mutableStateOf(emptyList<Statistic>()) }
-    var currentStatistic by remember { mutableStateOf<Statistic?>(null) }
     val scope = rememberCoroutineScope()
     val columns = listOf<TableColumn<Statistic>>(
         TableColumn("Name") { Text(it.name.text) },
@@ -39,7 +40,7 @@ fun StatisticScreen(
             Row {
                 EditButton {
                     scope.launch {
-                        currentStatistic = statistic
+                        onEdit(statistic.id)
                     }
                 }
                 DeleteButton {
@@ -54,20 +55,6 @@ fun StatisticScreen(
 
     LaunchedEffect(Unit) {
         statistics = statisticClient.getAllStatistics()
-    }
-
-    if (currentStatistic != null) {
-        StatisticUpdateDialog(
-            currentStatistic!!,
-            statistics.filter { it.id() != currentStatistic!!.id },
-            onConfirm = { newStatistic ->
-                scope.launch {
-                    statisticClient.updateStatistic(newStatistic)
-                    statistics = statisticClient.getAllStatistics()
-                }
-                currentStatistic = null
-            }
-        )
     }
 
     SpacedColumn {
